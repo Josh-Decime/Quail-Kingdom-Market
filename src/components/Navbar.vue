@@ -3,17 +3,16 @@ import { ref, watch } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 
-const theme = ref(loadState('theme') || 'light')
+const theme = ref(loadState('theme') || 'light');
 
 function toggleTheme() {
-  theme.value = theme.value == 'light' ? 'dark' : 'light'
+  theme.value = theme.value == 'light' ? 'dark' : 'light';
 }
 
 watch(theme, () => {
-  document.documentElement.setAttribute('data-bs-theme', theme.value)
-  saveState('theme', theme.value)
-}, { immediate: true })
-
+  document.documentElement.setAttribute('data-bs-theme', theme.value);
+  saveState('theme', theme.value);
+}, { immediate: true });
 </script>
 
 <template>
@@ -21,7 +20,7 @@ watch(theme, () => {
     <div class="container gap-2">
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
         <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Vue Starter</b>
+        <b class="fs-5">Magic Merchant</b>
       </RouterLink>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
@@ -34,6 +33,11 @@ watch(theme, () => {
           <li>
             <RouterLink :to="{ name: 'About' }" class="btn text-green selectable">
               About
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink :to="{ name: 'Tables' }" class="btn text-green selectable">
+              Magic Item Tables
             </RouterLink>
           </li>
         </ul>
