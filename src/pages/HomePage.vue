@@ -3,7 +3,7 @@
     <h1>Magic Item Merchant</h1>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
 
-    <!-- Modal for Rolling -->
+    <!-- Modal for Rolling and Searching Items -->
     <div class="modal fade" id="rollModal" tabindex="-1" aria-labelledby="rollModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -51,7 +51,29 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" @click="generateItems" data-bs-dismiss="modal">Get Items</button>
+            <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display Results in Cards -->
+    <div v-if="foundItems.length" class="mt-4">
+      <h3>Available Items</h3>
+      <div class="row">
+        <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
+          <div class="card p-3 shadow-sm item-card">
+            <h5 class="card-title" :style="getHeaderSize(item)">{{ item.name }}</h5>
+            <div class="item-details" :class="{ 'inline-details': item.description.length > 800 }">
+              <p :style="getSubTextSize(item)" class="small-text"><strong>Rarity:</strong> {{ item.rarity }}</p>
+              <p :style="getSubTextSize(item)" class="small-text"><strong>Type:</strong> {{ item.type }}</p>
+              <p :style="getSubTextSize(item)" class="small-text"><strong>Weight:</strong> {{ item.weight }} lbs</p>
+              <p v-if="item.attunement" :style="getSubTextSize(item)" class="small-text"><strong>Requires
+                  Attunement</strong></p>
+            </div>
+            <hr class="compact-hr">
+            <p class="formatted-text" :style="getTextSize(item.description)"
+              v-html="item.description.replace(/\n/g, '<br>')"></p>
           </div>
         </div>
       </div>
@@ -62,6 +84,7 @@
 <script>
 import { ref, computed } from 'vue';
 import { AppState } from '../AppState';
+import MagicItemService from '../services/MagicItemService';
 
 export default {
   setup() {
@@ -69,40 +92,43 @@ export default {
     const modifier = ref(0);
     const itemCountRoll = ref(null);
     const percentileRolls = ref([]);
+    const foundItems = ref([]);
 
     const totalRoll = computed(() => {
-      return (tableRoll.value || 0) + (modifier.value || 0);
+      return MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
     });
 
     function rollTable() {
-      tableRoll.value = Math.ceil(Math.random() * 20);
+      tableRoll.value = MagicItemService.rollDie(20);
     }
 
     function rollItemCount() {
-      itemCountRoll.value = Math.ceil(Math.random() * 4);
+      itemCountRoll.value = MagicItemService.rollDie(4);
       updatePercentileInputs();
     }
 
     function updatePercentileInputs() {
-      percentileRolls.value = Array(itemCountRoll.value || 0).fill(null);
+      percentileRolls.value = MagicItemService.initializePercentileRolls(itemCountRoll.value);
     }
 
     function rollPercentile(index) {
-      percentileRolls.value[index] = Math.ceil(Math.random() * 100);
+      percentileRolls.value[index] = MagicItemService.rollDie(100);
     }
 
-    function generateItems() {
-      const tableId = getTableId(totalRoll.value);
-      const selectedItems = percentileRolls.value.map(roll => AppState.magicItems[tableId]?.[roll] || null).filter(Boolean);
-      AppState.rollResults.selectedItems = selectedItems;
+    function searchItems() {
+      foundItems.value = MagicItemService.findMagicItems(totalRoll.value, percentileRolls.value);
     }
 
-    function getTableId(roll) {
-      if (roll >= 1 && roll <= 5) return 'A';
-      if (roll >= 6 && roll <= 10) return 'B';
-      if (roll >= 11 && roll <= 15) return 'C';
-      if (roll >= 16 && roll <= 20) return 'D';
-      return 'E';
+    function getTextSize(description) {
+      return description.length > 800 ? { fontSize: '0.85rem' } : { fontSize: '1rem' };
+    }
+
+    function getHeaderSize(item) {
+      return { fontSize: item.description.length > 800 ? '1rem' : '1.25rem' };
+    }
+
+    function getSubTextSize(item) {
+      return { fontSize: '0.75rem' };
     }
 
     return {
@@ -111,13 +137,60 @@ export default {
       itemCountRoll,
       percentileRolls,
       totalRoll,
+      foundItems,
       rollTable,
       rollItemCount,
       rollPercentile,
       updatePercentileInputs,
-      generateItems,
+      searchItems,
+      getTextSize,
+      getHeaderSize,
+      getSubTextSize,
       AppState
     };
   }
 };
 </script>
+
+<style scoped>
+.formatted-text {
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 10in;
+  padding: 1.5rem;
+}
+
+.item-card {
+  height: 5in;
+  overflow: hidden;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  /* Removes excess spacing above break line */
+}
+
+.inline-details {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.compact-hr {
+  margin: 2px 0;
+  /* Reduces excess space above and below break line */
+}
+
+.small-text {
+  font-size: 0.7rem;
+  /* Makes rarity, type, and weight smaller */
+  margin-bottom: 0;
+  /* Removes unnecessary space */
+}
+</style>
