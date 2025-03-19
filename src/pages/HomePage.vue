@@ -12,6 +12,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <!-- Table Roll (d20) -->
             <div class="mb-3">
               <label>Table Roll (d20):</label>
               <div class="input-group">
@@ -19,6 +20,8 @@
                 <button class="btn btn-secondary" @click="rollTable">Roll</button>
               </div>
             </div>
+
+            <!-- Modifier Input -->
             <div class="mb-3">
               <label>Modifier (Gold Spent, Downtime, Charisma):</label>
               <div class="input-group">
@@ -26,11 +29,24 @@
                 <span class="input-group-text">Total: {{ totalRoll }}</span>
               </div>
             </div>
+
+            <!-- Item Count Roll (d4) -->
             <div class="mb-3">
               <label>Item Count Roll (d4):</label>
               <div class="input-group">
-                <input v-model.number="itemCountRoll" type="number" class="form-control" placeholder="Roll result" />
+                <input v-model.number="itemCountRoll" type="number" class="form-control" placeholder="Roll result"
+                  @input="updatePercentileInputs" />
                 <button class="btn btn-secondary" @click="rollItemCount">Roll</button>
+              </div>
+            </div>
+
+            <!-- Percentile Rolls (1-100) -->
+            <div v-if="percentileRolls.length" class="mb-3">
+              <label>Percentile Rolls (d100):</label>
+              <div v-for="(roll, index) in percentileRolls" :key="index" class="input-group mb-2">
+                <input v-model.number="percentileRolls[index]" type="number" class="form-control"
+                  placeholder="Roll percentile (1-100)" min="1" max="100" />
+                <button class="btn btn-secondary" @click="rollPercentile(index)">Roll</button>
               </div>
             </div>
           </div>
@@ -39,16 +55,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div v-if="AppState.rollResults.selectedItems.length" class="mt-4">
-      <h3>Available Items</h3>
-      <ul>
-        <li v-for="item in AppState.rollResults.selectedItems" :key="item.name">
-          {{ item.name }} ({{ item.rarity }})
-        </li>
-      </ul>
-      <button class="btn btn-outline-primary" @click="printItems">Print</button>
     </div>
   </div>
 </template>
@@ -62,8 +68,8 @@ export default {
     const tableRoll = ref(null);
     const modifier = ref(0);
     const itemCountRoll = ref(null);
+    const percentileRolls = ref([]);
 
-    // Compute total roll dynamically
     const totalRoll = computed(() => {
       return (tableRoll.value || 0) + (modifier.value || 0);
     });
@@ -74,27 +80,42 @@ export default {
 
     function rollItemCount() {
       itemCountRoll.value = Math.ceil(Math.random() * 4);
+      updatePercentileInputs();
+    }
+
+    function updatePercentileInputs() {
+      percentileRolls.value = Array(itemCountRoll.value || 0).fill(null);
+    }
+
+    function rollPercentile(index) {
+      percentileRolls.value[index] = Math.ceil(Math.random() * 100);
     }
 
     function generateItems() {
-      AppState.rollResults.tableRoll = totalRoll.value;
-      AppState.rollResults.itemCountRoll = itemCountRoll.value;
-      AppState.rollResults.selectedItems = [/* TODO: Get items based on roll logic */];
+      const tableId = getTableId(totalRoll.value);
+      const selectedItems = percentileRolls.value.map(roll => AppState.magicItems[tableId]?.[roll] || null).filter(Boolean);
+      AppState.rollResults.selectedItems = selectedItems;
     }
 
-    function printItems() {
-      window.print();
+    function getTableId(roll) {
+      if (roll >= 1 && roll <= 5) return 'A';
+      if (roll >= 6 && roll <= 10) return 'B';
+      if (roll >= 11 && roll <= 15) return 'C';
+      if (roll >= 16 && roll <= 20) return 'D';
+      return 'E';
     }
 
     return {
       tableRoll,
       modifier,
       itemCountRoll,
+      percentileRolls,
       totalRoll,
       rollTable,
       rollItemCount,
+      rollPercentile,
+      updatePercentileInputs,
       generateItems,
-      printItems,
       AppState
     };
   }

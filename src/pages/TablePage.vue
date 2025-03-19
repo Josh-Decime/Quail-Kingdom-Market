@@ -1,10 +1,11 @@
 <template>
     <div class="container mt-4">
         <h1>Magic Item Tables</h1>
-        <div v-for="(items, rarity) in AppState.magicItems" :key="rarity" class="mb-4">
-            <h3 class="text-capitalize">{{ rarity }} Items</h3>
+
+        <div v-for="(table, tableKey) in AppState.magicItems" :key="tableKey" class="mb-4">
+            <h3 class="text-capitalize">Table {{ tableKey }} (Roll {{ table.range[0] }}-{{ table.range[1] }})</h3>
             <ul>
-                <li v-for="item in items" :key="item.name">
+                <li v-for="item in table.items" :key="item.name">
                     <button class="btn btn-link" @click="selectItem(item)" data-bs-toggle="modal"
                         data-bs-target="#itemModal">
                         {{ item.name }}
