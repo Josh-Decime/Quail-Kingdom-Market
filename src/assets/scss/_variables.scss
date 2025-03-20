@@ -1,15 +1,23 @@
 $body-bg: #fff;
 $body-bg-dark: #1b1f22;
 $theme-colors: (
-  "primary": #0e6efd,
-  "secondary": #aeb2b6,
-  "success": #198754,
-  "info": #0ccaf0,
-  "warning": #ffc105,
-  "danger": #dc3545,
-  "dark": #212529,
-  "light": #f8f9fa,
-  "body-bg": #fff,
+  "primary": #8B5E3B,
+  // Quail brown
+  "secondary": #D4AF37,
+  // Gold accent
+  "success": #5A8A6D,
+  // Earthy green
+  "info": #A49789,
+  // Soft neutral
+  "warning": #E1C16E,
+  // Golden yellow
+  "danger": #A23E48,
+  // Deep red-brown
+  "dark": #332620,
+  // Rich dark brown
+  "light": #F5E8D0,
+  // Parchment-like light
+  "body-bg": #F5E8D0,
   // Bootstrap extended colors
   "gray": $gray-500,
   "grey": $gray-500,

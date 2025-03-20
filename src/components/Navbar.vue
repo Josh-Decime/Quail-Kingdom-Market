@@ -16,34 +16,35 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md bg-codeworks border-bottom border-vue">
+  <nav class="navbar navbar-expand-md bg-parchment border-bottom border-gold"> <!-- UPDATED COLOR -->
     <div class="container gap-2">
-      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
-        <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Magic Merchant</b>
+      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-darkbrown"> <!-- UPDATED COLOR -->
+        <img class="navbar-brand" alt="logo" src="../assets/img/Quail-kingdom-seal.png" height="45" />
+        <b class="fs-5">Quail Kingdom Market</b>
       </RouterLink>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="mdi mdi-menu text-light"></span>
+        <span class="mdi mdi-menu text-darkbrown"></span> <!-- UPDATED COLOR -->
       </button>
       <!-- collapsing menu -->
       <div class="collapse navbar-collapse " id="navbar-links">
         <ul class="navbar-nav">
           <li>
-            <RouterLink :to="{ name: 'About' }" class="btn text-green selectable">
+            <RouterLink :to="{ name: 'About' }" class="btn text-darkbrown selectable"> <!-- UPDATED COLOR -->
               About
             </RouterLink>
           </li>
           <li>
-            <RouterLink :to="{ name: 'Tables' }" class="btn text-green selectable">
+            <RouterLink :to="{ name: 'Tables' }" class="btn text-darkbrown selectable"> <!-- UPDATED COLOR -->
               Magic Item Tables
             </RouterLink>
           </li>
         </ul>
         <!-- LOGIN COMPONENT HERE -->
         <div class="ms-auto">
-          <button class="btn text-light" @click="toggleTheme"
+          <!-- UPDATED COLOR -->
+          <button class="btn text-darkbrown" @click="toggleTheme"
             :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
             <i v-if="theme == 'dark'" class="mdi mdi-weather-sunny"></i>
             <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
@@ -56,30 +57,35 @@ watch(theme, () => {
 </template>
 
 <style lang="scss" scoped>
-@media print {
-  nav {
-    display: none !important;
-    position: absolute !important;
-    top: -9999px !important;
-    left: -9999px !important;
-    width: 0 !important;
-    height: 0 !important;
-    overflow: hidden !important;
-  }
+/* UPDATED COLORS */
+.bg-parchment {
+  background-color: #F5E8D0 !important;
+  /* Light parchment color */
 }
 
-
-a {
-  text-decoration: none;
+.border-gold {
+  border-color: #D4AF37 !important;
+  /* Gold accent */
 }
 
-.nav-link {
-  text-transform: uppercase;
+.text-darkbrown {
+  color: #3D2B1F !important;
+  /* Dark brown/black for better contrast */
 }
 
+/* Ensure navbar links match new color */
 .navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom: 2px solid #E1C16E !important;
+  /* Golden yellow for active link */
+}
+
+/* DARK MODE COLORS */
+[data-bs-theme="dark"] {
+  --bs-body-bg: #332620 !important;
+  /* Dark brown background */
+  --bs-body-color: #E1C16E !important;
+  /* Golden text */
+  --bs-navbar-bg: #2A1E1A !important;
+  /* Even darker navbar */
 }
 </style>

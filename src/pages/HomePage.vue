@@ -135,7 +135,14 @@ export default {
     }
 
     function printPage() {
-      const element = document.body; // Capture the visible page
+      // Ensure modal stays functional
+      const unwantedElements = document.querySelectorAll(".btn, #rollModal, footer");
+      unwantedElements.forEach(el => el.style.display = "none");
+
+      // REMOVE the Vue logo by calling our new function
+      // removeVueLogo();
+
+      const element = document.body; // Capture the full page
 
       html2canvas(element, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
@@ -146,7 +153,7 @@ export default {
         <head>
           <title>Print Magic Items</title>
           <style>
-            body { margin: 0; text-align: center; }
+            body { margin: 0; text-align: center; font-family: Arial, sans-serif; }
             img { width: 100%; }
           </style>
         </head>
@@ -163,8 +170,18 @@ export default {
     `);
 
         printWindow.document.close();
+
+        // Restore elements after capture
+        unwantedElements.forEach(el => el.style.display = "");
       });
     }
+
+
+    // function removeVueLogo() {
+    //   // Find and remove common Vue logo elements
+    //   const vueLogoElements = document.querySelectorAll("img[alt='Vue logo'], .vue-logo, img[src*='favicon']");
+    //   vueLogoElements.forEach(el => el.remove()); // Nuke them
+    // }
 
 
     return {
@@ -184,6 +201,7 @@ export default {
       getSubTextSize,
       AppState,
       printPage,
+      // removeVueLogo,
     };
   }
 };
