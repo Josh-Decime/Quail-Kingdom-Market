@@ -56,6 +56,19 @@ watch(theme, () => {
 </template>
 
 <style lang="scss" scoped>
+@media print {
+  nav {
+    display: none !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
+
 a {
   text-decoration: none;
 }

@@ -2,6 +2,8 @@
   <div class="container mt-4">
     <h1>Magic Item Merchant</h1>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
+    <button class="btn btn-secondary ms-2" @click="printPage">Print Items</button>
+
 
     <!-- Modal for Rolling and Searching Items -->
     <div class="modal fade" id="rollModal" tabindex="-1" aria-labelledby="rollModalLabel" aria-hidden="true">
@@ -59,7 +61,7 @@
 
     <!-- Display Results in Cards -->
     <div v-if="foundItems.length" class="mt-4">
-      <h3>Available Items</h3>
+      <h3 class="print-hidden">Available Items</h3>
       <div class="row">
         <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
           <div class="card p-3 shadow-sm item-card">
@@ -131,6 +133,10 @@ export default {
       return { fontSize: '0.75rem' };
     }
 
+    function printPage() {
+      window.print();
+    }
+
     return {
       tableRoll,
       modifier,
@@ -146,13 +152,93 @@ export default {
       getTextSize,
       getHeaderSize,
       getSubTextSize,
-      AppState
+      AppState,
+      printPage,
     };
   }
 };
 </script>
 
 <style scoped>
+@media print {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Shift everything up to remove navbar space */
+  .container {
+    position: fixed !important;
+    top: -45px !important;
+    left: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* Hide unnecessary UI elements */
+  .btn,
+  .modal,
+  h1,
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Keep two-column layout and ensure text doesn't cut off */
+  .row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    /* Two per row */
+    gap: 5px !important;
+    justify-content: center !important;
+    align-items: start !important;
+  }
+
+  /* Ensure cards fit content dynamically */
+  .print-card {
+    page-break-inside: avoid !important;
+    width: 49.5% !important;
+    /* Maximize width */
+    max-width: 49.5% !important;
+    min-height: 6in !important;
+    /* Allow room for long descriptions */
+    padding: 0.3rem !important;
+    font-size: 0.75rem !important;
+    text-align: left !important;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Reduce space to fit more text */
+  .print-card * {
+    max-height: 100% !important;
+    margin-bottom: 1px !important;
+  }
+
+  /* Reduce text size on long descriptions */
+  .formatted-text {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+    /* Reduce line spacing */
+  }
+
+  /* Force smaller text for very long descriptions */
+  .print-card[data-length="long"] .formatted-text {
+    font-size: 0.65rem !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Force even smaller text for extremely long descriptions */
+  .print-card[data-length="extra-long"] .formatted-text {
+    font-size: 0.6rem !important;
+    line-height: 1 !important;
+  }
+}
+
+/* end of media */
+/*  */
+
 .formatted-text {
   white-space: pre-line;
   line-height: 1.4;
