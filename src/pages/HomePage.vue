@@ -87,6 +87,7 @@
 import { ref, computed } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
+import html2canvas from "html2canvas";
 
 export default {
   setup() {
@@ -134,8 +135,37 @@ export default {
     }
 
     function printPage() {
-      window.print();
+      const element = document.body; // Capture the visible page
+
+      html2canvas(element, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const printWindow = window.open("", "_blank");
+
+        printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Magic Items</title>
+          <style>
+            body { margin: 0; text-align: center; }
+            img { width: 100%; }
+          </style>
+        </head>
+        <body>
+          <img src="` + imgData + `" />
+          <script>
+            window.onload = function() { 
+              window.print();
+              window.close();
+            };
+          </` + `script>
+        </body>
+      </html>
+    `);
+
+        printWindow.document.close();
+      });
     }
+
 
     return {
       tableRoll,
@@ -240,8 +270,10 @@ export default {
 /*  */
 
 .formatted-text {
-  white-space: pre-line;
-  line-height: 1.4;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  word-wrap: break-word;
+  /* Ensures text doesn't overflow */
 }
 
 .card {
