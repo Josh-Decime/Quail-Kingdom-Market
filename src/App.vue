@@ -11,9 +11,27 @@ import { RouterView } from 'vue-router';
   <main>
     <RouterView />
   </main>
-  <footer class=" text-center">
-    <!-- Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks -->
+  <footer class="quail-footer">
+    <img src="@/assets/img/Quail-kingdom-seal.png" alt="Quail Kingdom Seal" class="quail-seal">
   </footer>
+
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.quail-footer {
+  display: flex;
+  justify-content: flex-end;
+  /* Pushes it to the right */
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.quail-seal {
+  width: 150px;
+  /* Adjust size as needed */
+  height: auto;
+  opacity: 0.8;
+  /* Slight transparency for a subtle effect */
+}
+</style>

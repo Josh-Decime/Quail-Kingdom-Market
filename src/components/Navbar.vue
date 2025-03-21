@@ -19,8 +19,8 @@ watch(theme, () => {
   <nav class="navbar navbar-expand-md bg-parchment border-bottom border-gold"> <!-- UPDATED COLOR -->
     <div class="container gap-2">
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-darkbrown"> <!-- UPDATED COLOR -->
-        <img class="navbar-brand" alt="logo" src="../assets/img/Quail-kingdom-seal.png" height="45" />
-        <b class="fs-5">Quail Kingdom Market</b>
+        <img class="navbar-brand" alt="logo" src="../assets/img/Quail-kingdom-logo.png" height="150" />
+        <b class="fs-2">Quail Kingdom Market</b>
       </RouterLink>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
@@ -31,32 +31,43 @@ watch(theme, () => {
       <div class="collapse navbar-collapse " id="navbar-links">
         <ul class="navbar-nav">
           <li>
-            <RouterLink :to="{ name: 'About' }" class="btn text-darkbrown selectable"> <!-- UPDATED COLOR -->
-              About
-            </RouterLink>
-          </li>
-          <li>
             <RouterLink :to="{ name: 'Tables' }" class="btn text-darkbrown selectable"> <!-- UPDATED COLOR -->
               Magic Item Tables
             </RouterLink>
           </li>
+          <li>
+            <RouterLink :to="{ name: 'About' }" class="btn text-darkbrown selectable"> <!-- UPDATED COLOR -->
+              About
+            </RouterLink>
+          </li>
         </ul>
         <!-- LOGIN COMPONENT HERE -->
-        <div class="ms-auto">
-          <!-- UPDATED COLOR -->
+        <!-- <div class="ms-auto">
           <button class="btn text-darkbrown" @click="toggleTheme"
             :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
             <i v-if="theme == 'dark'" class="mdi mdi-weather-sunny"></i>
             <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
           </button>
         </div>
-        <Login />
+        <Login /> -->
       </div>
     </div>
   </nav>
 </template>
 
 <style lang="scss" scoped>
+@media print {
+  nav {
+    visibility: hidden !important;
+    position: fixed !important;
+    top: -100vh !important;
+    left: -100vw !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
 /* UPDATED COLORS */
 .bg-parchment {
   background-color: #F5E8D0 !important;

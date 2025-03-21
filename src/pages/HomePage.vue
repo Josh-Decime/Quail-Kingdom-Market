@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h1>Magic Item Merchant</h1>
+    <!-- <h1>Magic Item Merchant</h1> -->
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
     <button class="btn btn-secondary ms-2" @click="printPage">Print Items</button>
 
@@ -135,12 +135,9 @@ export default {
     }
 
     function printPage() {
-      // Ensure modal stays functional
-      const unwantedElements = document.querySelectorAll(".btn, #rollModal, footer");
+      // Hide unwanted elements for cleaner print output
+      const unwantedElements = document.querySelectorAll(".btn, #rollModal");
       unwantedElements.forEach(el => el.style.display = "none");
-
-      // REMOVE the Vue logo by calling our new function
-      // removeVueLogo();
 
       const element = document.body; // Capture the full page
 
@@ -151,10 +148,11 @@ export default {
         printWindow.document.write(`
       <html>
         <head>
-          <title>Print Magic Items</title>
+          <title>The Quail King welcomes you to the..</title>
           <style>
             body { margin: 0; text-align: center; font-family: Arial, sans-serif; }
             img { width: 100%; }
+            .seal { position: fixed; bottom: 10px; right: 10px; width: 100px; }
           </style>
         </head>
         <body>
@@ -166,15 +164,17 @@ export default {
             };
           </` + `script>
         </body>
+        <footer>Thank you for your patronage</footer>
       </html>
     `);
 
         printWindow.document.close();
 
-        // Restore elements after capture
+        // Restore hidden elements after print
         unwantedElements.forEach(el => el.style.display = "");
       });
     }
+
 
 
     // function removeVueLogo() {
