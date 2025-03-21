@@ -245,8 +245,17 @@ export default {
       if (!foundItems.value[index]) return; // Safety check
 
       const item = foundItems.value[index];
-      item.price = MagicItemService.calculatePriceForItem(item);
+      // console.log("Rolling price for:", item.name);
+
+      // FORCE Vue to detect the price update
+      foundItems.value[index] = {
+        ...item,
+        price: MagicItemService.calculatePriceForItem(item)
+      };
+
+      // console.log("New price:", foundItems.value[index].price);
     }
+
 
 
 
