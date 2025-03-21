@@ -51,6 +51,27 @@
                 <button class="btn btn-secondary" @click="rollPercentile(index)">Roll</button>
               </div>
             </div>
+
+            <!-- Cost Inputs (Generated based on rarity) -->
+            <div v-if="foundItems.length" class="mb-3">
+              <label>Item Prices:</label>
+              <!-- Iterate through found items -->
+              <div v-for="(item, index) in foundItems" :key="index" class="mb-3">
+                <strong>{{ item.name }}</strong> <!-- Show item name above input -->
+                <div class="input-group">
+                  <span class="input-group-text">Price (gp)</span>
+                  <input v-model="item.price" type="text" class="form-control" placeholder="Roll for price">
+                  <button class="btn btn-secondary" @click="item.price = rollPriceForItem(index)">Roll</button>
+                </div>
+                <!-- Show the price calculation formula -->
+                <p class="price-formula">
+                  <em>Price Formula: {{ getPriceFormula(item.rarity) }}</em>
+                </p>
+              </div>
+            </div>
+
+
+
           </div>
           <div class="modal-footer">
             <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button>
@@ -84,7 +105,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
 import html2canvas from "html2canvas";
@@ -96,6 +117,26 @@ export default {
     const itemCountRoll = ref(null);
     const percentileRolls = ref([]);
     const foundItems = ref([]);
+    // Watch for foundItems updates and attach price properties
+    watch(foundItems, (newItems) => {
+      newItems.forEach((item) => {
+        if (!item.price) {
+          item.price = "Roll for price"; // Default text
+        }
+      });
+    }, { deep: true });
+    watch(percentileRolls, (newRolls) => {
+      if (newRolls.length) {
+        foundItems.value = MagicItemService.findMagicItems(totalRoll.value, newRolls);
+
+        // Initialize prices as soon as items are found
+        foundItems.value.forEach((item) => {
+          item.price = ""; // Keep it empty until the player rolls
+        });
+
+      }
+    }, { deep: true });
+
 
     const totalRoll = computed(() => {
       return MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
@@ -177,11 +218,36 @@ export default {
 
 
 
-    // function removeVueLogo() {
-    //   // Find and remove common Vue logo elements
-    //   const vueLogoElements = document.querySelectorAll("img[alt='Vue logo'], .vue-logo, img[src*='favicon']");
-    //   vueLogoElements.forEach(el => el.remove()); // Nuke them
-    // }
+    function rollPrice(index) {
+      if (foundItems.value[index]) {
+        foundItems.value[index].price = MagicItemService.calculatePriceForItem(foundItems.value[index]);
+      }
+    }
+
+    function getPriceFormula(rarity) {
+      switch (rarity) {
+        case "Common":
+          return "(1d6 + 1) × 10 gp";
+        case "Uncommon":
+          return "1d6 × 100 gp";
+        case "Rare":
+          return "2d10 × 1,000 gp";
+        case "Very Rare":
+          return "(1d4 + 1) × 10,000 gp";
+        case "Legendary":
+          return "2d6 × 25,000 gp";
+        default:
+          return "N/A";
+      }
+    }
+
+    function rollPriceForItem(index) {
+      if (!foundItems.value[index]) return; // Safety check
+
+      const item = foundItems.value[index];
+      item.price = MagicItemService.calculatePriceForItem(item);
+    }
+
 
 
     return {
@@ -201,7 +267,9 @@ export default {
       getSubTextSize,
       AppState,
       printPage,
-      // removeVueLogo,
+      rollPrice,
+      getPriceFormula,
+      rollPriceForItem
     };
   }
 };
@@ -328,5 +396,13 @@ export default {
   /* Makes rarity, type, and weight smaller */
   margin-bottom: 0;
   /* Removes unnecessary space */
+}
+
+.price-formula {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #4a2c2a;
+  /* Dark brown to match theme */
+  margin-bottom: 5px;
 }
 </style>
