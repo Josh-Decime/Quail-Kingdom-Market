@@ -2,11 +2,19 @@
     <div class="container mt-4">
         <h1>Magic Item Tables</h1>
 
-        <div v-for="(table, tableKey) in AppState.magicItems" :key="tableKey" class="mb-4">
-            <h3 class="text-capitalize">Table {{ tableKey }} (Roll {{ table.range[0] }}-{{ table.range[1] }})</h3>
+        <!-- Search Bar -->
+        <div class="mb-3">
+            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search for an item...">
+        </div>
+
+        <!-- Loop through filtered tables -->
+        <div v-for="tableKey in Object.keys(filteredTables)" :key="tableKey" class="mb-4">
+            <h3 class="text-capitalize">Table {{ tableKey }} (Roll {{ filteredTables[tableKey].range[0] }}-{{
+                filteredTables[tableKey].range[1] }})</h3>
             <ul>
-                <li v-for="item in table.items" :key="item.name">
-                    <button class="btn btn-link" @click="selectItem(item)" data-bs-toggle="modal"
+                <li v-for="item in filteredTables[tableKey].filteredItems" :key="item.name">
+                    <span class="roll-range">({{ item.range[0] }}-{{ item.range[1] }})</span>
+                    <button class="btn btn-link dark-text" @click="selectItem(item)" data-bs-toggle="modal"
                         data-bs-target="#itemModal">
                         {{ item.name }}
                     </button>
@@ -46,6 +54,7 @@ import { AppState } from '../AppState';
 export default {
     setup() {
         const selectedItem = ref(null);
+        const searchQuery = ref("");
 
         const formattedDescription = computed(() => {
             return selectedItem.value?.description?.replace(/\n/g, '<br>') || '';
@@ -55,19 +64,57 @@ export default {
             selectedItem.value = item;
         }
 
+        const filteredTables = computed(() => {
+            if (!searchQuery.value) {
+                return Object.fromEntries(
+                    Object.entries(AppState.magicItems).map(([key, table]) => [
+                        key,
+                        { ...table, filteredItems: table.items }
+                    ])
+                );
+            }
+
+            const query = searchQuery.value.toLowerCase();
+            return Object.fromEntries(
+                Object.entries(AppState.magicItems)
+                    .map(([key, table]) => {
+                        const filteredItems = table.items.filter(item =>
+                            item.name.toLowerCase().includes(query)
+                        );
+                        return filteredItems.length > 0 ? [key, { ...table, filteredItems }] : null;
+                    })
+                    .filter(Boolean)
+            );
+        });
+
         return {
             AppState,
             selectedItem,
+            searchQuery,
             selectItem,
-            formattedDescription
+            formattedDescription,
+            filteredTables
         };
     }
 };
 </script>
 
 <style scoped>
-.formatted-text {
-    white-space: pre-line;
-    line-height: 1.6;
+/* Dark text for better visibility */
+.dark-text {
+    color: #4a2c2a !important;
+    /* Dark brown */
+}
+
+/* Keeps roll range aligned properly */
+.roll-range {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Formats search bar */
+input.form-control {
+    max-width: 400px;
+    margin-bottom: 10px;
 }
 </style>
