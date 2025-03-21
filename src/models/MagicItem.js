@@ -7,5 +7,6 @@ export class MagicItem {
         this.attunement = data.attunement || false;
         this.description = data.description || "No description available.";
         this.price = data.price || null;
+        this.isConsumable = data.isConsumable || false
     }
 }

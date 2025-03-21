@@ -8,11 +8,11 @@
         </div>
 
         <!-- Loop through filtered tables -->
-        <div v-for="tableKey in Object.keys(filteredTables)" :key="tableKey" class="mb-4">
-            <h3 class="text-capitalize">Table {{ tableKey }} (Roll {{ filteredTables[tableKey].range[0] }}-{{
-                filteredTables[tableKey].range[1] }})</h3>
+        <div v-for="(table, tableKey) in filteredTables" :key="tableKey" class="mb-4">
+            <h3 class="text-capitalize">Table {{ tableKey }} (Roll {{ table.range[0] }}-{{ table.range[1] }})</h3>
+
             <ul>
-                <li v-for="item in filteredTables[tableKey].filteredItems" :key="item.name">
+                <li v-for="item in filteredTables[tableKey].filteredItems" :key="item.uniqueKey">
                     <span class="roll-range">({{ item.range[0] }}-{{ item.range[1] }})</span>
                     <button class="btn btn-link dark-text" @click="selectItem(item)" data-bs-toggle="modal"
                         data-bs-target="#itemModal">
@@ -65,27 +65,22 @@ export default {
         }
 
         const filteredTables = computed(() => {
-            if (!searchQuery.value) {
-                return Object.fromEntries(
-                    Object.entries(AppState.magicItems).map(([key, table]) => [
-                        key,
-                        { ...table, filteredItems: table.items }
-                    ])
+            const result = {};
+            for (const key in AppState.magicItems) {
+                const filteredItems = AppState.magicItems[key].items.filter(item =>
+                    item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
                 );
-            }
 
-            const query = searchQuery.value.toLowerCase();
-            return Object.fromEntries(
-                Object.entries(AppState.magicItems)
-                    .map(([key, table]) => {
-                        const filteredItems = table.items.filter(item =>
-                            item.name.toLowerCase().includes(query)
-                        );
-                        return filteredItems.length > 0 ? [key, { ...table, filteredItems }] : null;
-                    })
-                    .filter(Boolean)
-            );
+                if (filteredItems.length > 0) {
+                    result[key] = {
+                        ...AppState.magicItems[key],
+                        filteredItems
+                    };
+                }
+            }
+            return result;
         });
+
 
         return {
             AppState,

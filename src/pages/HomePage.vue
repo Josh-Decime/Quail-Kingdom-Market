@@ -13,6 +13,10 @@
             <h5 class="modal-title" id="rollModalLabel">Find Magic Items</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <!-- Toggle Black Market Mode -->
+          <button class="btn btn-dark mt-2" @click="toggleBlackMarketMode">
+            {{ blackMarketMode ? "Exit Black Market" : "Access Black Market" }}
+          </button>
           <div class="modal-body">
             <!-- Table Roll (d20) -->
             <div class="mb-3">
@@ -156,8 +160,10 @@ export default {
 
 
     const totalRoll = computed(() => {
-      return MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
+      let roll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
+      return blackMarketMode.value ? roll + 1000 : roll;
     });
+
 
     function rollTable() {
       tableRoll.value = MagicItemService.rollDie(20);
@@ -304,6 +310,12 @@ export default {
       }
     }
 
+    const blackMarketMode = ref(false);
+
+    function toggleBlackMarketMode() {
+      blackMarketMode.value = !blackMarketMode.value;
+    }
+
 
     return {
       tableRoll,
@@ -327,7 +339,9 @@ export default {
       rollPriceForItem,
       updatePrice,
       getDieForRarity,
-      calculatePriceFromRoll
+      calculatePriceFromRoll,
+      blackMarketMode,
+      toggleBlackMarketMode
     };
   }
 };
