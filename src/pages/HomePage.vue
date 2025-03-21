@@ -55,26 +55,28 @@
             <!-- Cost Inputs (Generated based on rarity) -->
             <div v-if="foundItems.length" class="mb-3">
               <label>Item Prices:</label>
-              <!-- Iterate through found items -->
               <div v-for="(item, index) in foundItems" :key="index" class="mb-3">
                 <strong>{{ item.name }}</strong> <!-- Show item name above input -->
                 <div class="input-group">
-                  <span class="input-group-text">Price (gp)</span>
-                  <input v-model="item.price" type="text" class="form-control" placeholder="Roll for price">
-                  <button class="btn btn-secondary" @click="item.price = rollPriceForItem(index)">Roll</button>
+                  <span class="input-group-text">Price: {{ item.price }} gp</span>
+                  <input v-model.number="item.rolledValue" type="number" class="form-control" placeholder="Roll result"
+                    @input="updatePrice(index)" />
+                  <button class="btn btn-secondary" @click="rollPriceForItem(index)">Roll</button>
                 </div>
-                <!-- Show the price calculation formula -->
-                <p class="price-formula">
-                  <em>Price Formula: {{ getPriceFormula(item.rarity) }}</em>
-                </p>
+                <p class="price-formula"><em>Price Formula: {{ getPriceFormula(item.rarity) }}</em></p>
               </div>
             </div>
 
 
 
+
+
+
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button>
+            <!-- NOTE search item may be redundant -->
+            <!-- <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button> -->
+            <button class="btn btn-success" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -86,7 +88,10 @@
       <div class="row">
         <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
           <div class="card p-3 shadow-sm item-card">
-            <h5 class="card-title" :style="getHeaderSize(item)">{{ item.name }}</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title" :style="getHeaderSize(item)">{{ item.name }}</h5>
+              <p v-if="item.price" class="card-price"><strong>{{ item.price }} gp</strong></p>
+            </div>
             <div class="item-details" :class="{ 'inline-details': item.description.length > 800 }">
               <p :style="getSubTextSize(item)" class="small-text"><strong>Rarity:</strong> {{ item.rarity }}</p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>Type:</strong> {{ item.type }}</p>
@@ -121,7 +126,7 @@ export default {
     watch(foundItems, (newItems) => {
       newItems.forEach((item) => {
         if (!item.price) {
-          item.price = "Roll for price"; // Default text
+          item.price = "(Roll)"; // Default text
         }
       });
     }, { deep: true });
@@ -136,6 +141,18 @@ export default {
 
       }
     }, { deep: true });
+
+
+    watch([tableRoll, modifier], () => {
+      itemCountRoll.value = null;  // Reset item count
+      percentileRolls.value = [];  // Clear percentile rolls
+      foundItems.value = [];       // Clear found items
+
+      // Recalculate totalRoll inside the watcher to avoid referencing it too soon
+      const newTotalRoll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
+
+    }, { flush: 'post' });  // Ensure it runs after Vue initializes
+
 
 
     const totalRoll = computed(() => {
@@ -159,6 +176,7 @@ export default {
       percentileRolls.value[index] = MagicItemService.rollDie(100);
     }
 
+    // NOTE This might be redundant now that items are updated as values are input. The search items button now closes the modal instead
     function searchItems() {
       foundItems.value = MagicItemService.findMagicItems(totalRoll.value, percentileRolls.value);
     }
@@ -242,21 +260,49 @@ export default {
     }
 
     function rollPriceForItem(index) {
-      if (!foundItems.value[index]) return; // Safety check
-
       const item = foundItems.value[index];
-      // console.log("Rolling price for:", item.name);
-
-      // FORCE Vue to detect the price update
-      foundItems.value[index] = {
-        ...item,
-        price: MagicItemService.calculatePriceForItem(item)
-      };
-
-      // console.log("New price:", foundItems.value[index].price);
+      if (item) {
+        item.rolledValue = MagicItemService.rollDie(getDieForRarity(item.rarity)); // Roll based on rarity
+        updatePrice(index); // Update price immediately
+      }
     }
 
 
+    function updatePrice(index) {
+      const item = foundItems.value[index];
+      if (item && item.rolledValue) {
+        item.price = calculatePriceFromRoll(item.rarity, item.rolledValue);
+      }
+    }
+
+    // Determines correct die for rolling
+    function getDieForRarity(rarity) {
+      switch (rarity) {
+        case "Common": return 6;
+        case "Uncommon": return 6;
+        case "Rare": return 10;
+        case "Very Rare": return 4;
+        case "Legendary": return 6;
+        default: return 1;
+      }
+    }
+
+    function calculatePriceFromRoll(rarity, roll) {
+      switch (rarity) {
+        case "Common":
+          return (roll + 1) * 10;
+        case "Uncommon":
+          return roll * 100;
+        case "Rare":
+          return roll * 1000;
+        case "Very Rare":
+          return (roll + 1) * 10000;
+        case "Legendary":
+          return roll * 25000;
+        default:
+          return "N/A";
+      }
+    }
 
 
     return {
@@ -278,7 +324,10 @@ export default {
       printPage,
       rollPrice,
       getPriceFormula,
-      rollPriceForItem
+      rollPriceForItem,
+      updatePrice,
+      getDieForRarity,
+      calculatePriceFromRoll
     };
   }
 };
