@@ -1,81 +1,61 @@
-Wand of Magic Detection
-Wand of Magic Missiles
-Wand of Secrets
-Wand of the War Mage, +1
-Wand of Conducting (Acquisitions Incorporated)
-Weapon, +1
-weapon of warning
-Wind Fan
-Spell Scroll (2nd Level)
-Adamantine Armor
-Alchemy Jug
-Ammunition, +1
-Amulet of Proof Against Detection and Location
-Bag of Holding
-Bag of Tricks (Gray)
-Bag of Tricks (Rust)
-Bag of Tricks (Tan)
-Boots of Elvenkind
-Boots of Striding and Springing
-Boots of the Winterlands
-Bracers of Archery
-Brooch of Shielding
-Broom of Flying
-Circlet of Blasting
-Ring of Jumping
-Ring of Mind Shielding
-Ring of Swimming
-Ring of Warmth
-Ring of Water Walking
-Decanter of Endless Water
-Figurine of Wondrous Power (Bronze Griffon)
-Figurine of Wondrous Power (Ebony Fly)
-Figurine of Wondrous Power (Golden Lions)
-Figurine of Wondrous Power (Ivory Goats)
-Figurine of Wondrous Power (Marble Elephant)
-Figurine of Wondrous Power (Onyx Dog)
-Figurine of Wondrous Power (Serpentine Owl)
-Deck of Illusions
-Driftglobe
-Efficient Quiver
-Eversmoking Bottle
-Eyes of Charming
-Eyes of Minute Seeing
-Eyes of the Eagle
-Pipes of Haunting
-Pipes of the Sewers
-Gauntlets of Ogre Power
-Gem of Brightness
-Gloves of Missile Snaring
-Gloves of Swimming and Climbing
-Goggles of Night
-Cloak of Elvenkind
-Cloak of Protection
-Cloak of the Manta Ray
-Hat of Disguise
-Headband of Intellect
-Helm of Comprehending Languages
-Helm of Telepathy
-Horseshoes of Speed
-Immovable Rod
-Keoghtom’s Ointment
-Lantern of Revealing
-Medallion of Thoughts
-Spell Scroll (3rd Level)
-Mithral Armor
-Periapt of Health
-Periapt of Wound Closure
-Portable Hole
-Quiver of Ehlonna
-Robe of Useful Items
-Rope of Climbing
-Saddle of the Cavalier
-Sending Stones
-Slippers of Spider Climbing
-Staff of the Python
-Trident of Fish Command
-Winged Boots
-Wingwear
-Wheel of Wind and Water (Ghosts of Saltmarsh)
-Wings of Flying
-Stone of Good Luck (Luckstone)
+Bead of Nourishment [1, 2]
+Potion of Climbing [3, 3]
+Potion of Healing [4, 5]
+Potion of Watchful Rest [6, 6]
+Crystal Lens [7, 8]
+Amber Monocle [9, 9]
+Armblade [10, 11]
+Boots of False Tracks [12, 12]
+Candle of the Deep [13, 14]
+Dark Shard Amulet [15, 15]
+Cast-Off Armor [16, 17]
+Armor of Gleaming [18, 18]
+Smoldering Armor [19, 20]
+Charlatan's Die [21, 21]
+Cloak of Billowing [22, 23]
+Cloak of Many Fashions [24, 24]
+Clockwork Amulet [25, 26]
+Clothes of Mending [27, 27]
+Dread Helm [28, 29]
+Ear Horn of Hearing [30, 30]
+Enduring Spellbook [31, 32]
+Earring of Message [33, 33]
+Erase [34, 35]
+Everbright Lantern [36, 36]
+Everfull Mug [37, 38]
+Hat of Vermin [39, 39]
+Heward's Handy Spice Pouch [40, 41]
+Horn of Silent Alarm [42, 42]
+Imbued Wood Focus [43, 44]
+Instrument of Illusions [45, 45]
+Lock of Trickery [46, 47]
+Mystery Key [48, 48]
+Orb of Direction [49, 50]
+Orb of Time [51, 51]
+Wand of Conducting [52, 53]
+Wand of Pyrotechnics [54, 54]
+Wand of Scowls [55, 56]
+Wand of Smiles [57, 57]
+Staff of Adornment [58, 59]
+Staff of Birdcalls [60, 60]
+Staff of Flowers [61, 62]
+Moon-Touched Sword [63, 63]
+Amulet of the Drunkard [64, 65]
+Perfume of Bewitching [66, 67]
+Pipe of Smoke Monsters [68, 69]
+Pole of Collapsing [70, 71]
+Pot of Awakening [72, 73]
+Pressure Capsule [74, 75]
+Prosthetic Limb [76, 77]
+Rope of Mending [78, 79]
+Ruby of the War Mage [80, 81]
+Shield of Expression [82, 83]
+Spell Scroll (Cantrip) [84, 85]
+Tankard of Sobriety [86, 87]
+Talking Doll [88, 89]
+Unbreakable Arrow [90, 91]
+Veteran's Cane [92, 93]
+Walloping Ammunition [94, 95]
+Weapon of Certain Death [96, 97]
+Wooden Coin [98, 98]
+Masquerade Tattoo [99, 100]
