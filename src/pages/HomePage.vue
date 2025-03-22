@@ -121,6 +121,8 @@ import html2canvas from "html2canvas";
 
 export default {
   setup() {
+    console.log("Loaded tables in AppState:", AppState.magicItems);
+
     const tableRoll = ref(null);
     const modifier = ref(0);
     const itemCountRoll = ref(null);
