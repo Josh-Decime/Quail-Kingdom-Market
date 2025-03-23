@@ -630,7 +630,7 @@ export const tableD = {
             type: "Weapon (Slashing)",
             weight: 3,
             attunement: true,
-            range: [93, 93],
+            range: [93, 94],
             description: "When you score a critical hit with this weapon, you roll an extra damage die and may lop off limbs if the target has any. Deals extra slashing damage."
         }),
         new MagicItem({
@@ -639,7 +639,7 @@ export const tableD = {
             type: "Weapon (Any sword)",
             weight: 3,
             attunement: true,
-            range: [94, 94],
+            range: [95, 96],
             description: "This weapon causes wounds that can’t heal normally. At the start of each of the wounded creature’s turns, it takes 1d4 necrotic damage for each wound it has. A creature can make a DC 15 Con check to stop the bleeding."
         }),
         new MagicItem({
@@ -648,7 +648,7 @@ export const tableD = {
             type: "Weapon (Scimitar)",
             weight: 3,
             attunement: true,
-            range: [95, 96],
+            range: [97, 98],
             description: "You gain a +2 bonus to attack and damage rolls made with this magic weapon. You can make one attack with it as a bonus action on each of your turns."
         }),
         new MagicItem({
@@ -657,26 +657,8 @@ export const tableD = {
             type: "Weapon (Sword)",
             weight: 3,
             attunement: true,
-            range: [97, 97],
-            description: "You can use a bonus action to toss this magic sword into the air and speak a command word. When you do so, the sword begins to hover, flies up to 30 feet, and attacks one creature of your choice. It uses your attack and damage bonuses."
-        }),
-        new MagicItem({
-            name: "Vorpal Sword",
-            rarity: "Very Rare",
-            type: "Weapon (Sword)",
-            weight: 3,
-            attunement: true,
-            range: [98, 98],
-            description: "When you attack a creature with this magic weapon and roll a 20 on the attack roll, you cut off one of the creature’s heads (if it has any), instantly killing it unless it's immune or has multiple heads."
-        }),
-        new MagicItem({
-            name: "Well of Many Worlds",
-            rarity: "Very Rare",
-            type: "Wondrous Item",
-            weight: 1,
-            attunement: false,
             range: [99, 100],
-            description: "This fine black cloth, soft as silk, is folded up to the dimensions of a handkerchief. It opens into a circular sheet 6 feet in diameter. When laid upon any solid surface, it creates a two-way portal to another world or plane."
+            description: "You can use a bonus action to toss this magic sword into the air and speak a command word. When you do so, the sword begins to hover, flies up to 30 feet, and attacks one creature of your choice. It uses your attack and damage bonuses."
         }),
     ]
 };
