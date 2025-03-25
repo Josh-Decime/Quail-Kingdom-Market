@@ -119,6 +119,8 @@ import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
 import html2canvas from "html2canvas";
 
+
+// TODO I need to move these functions to their respective service. I allowed myself to break the structure because it was quicker & easier in the moment, but now I have a mess to clean up & troubleshooting is much more difficult. Its great code clean up practice, & a lesson on why sticking to a structure is so important. 
 export default {
   setup() {
     console.log("Loaded tables in AppState:", AppState.magicItems);
@@ -243,13 +245,14 @@ export default {
     }
 
 
-
+    // FIXME calls the function we want but is not being called anywhere
     function rollPrice(index) {
       if (foundItems.value[index]) {
         foundItems.value[index].price = MagicItemService.calculatePriceForItem(foundItems.value[index]);
       }
     }
 
+    // NOTE this is only to display the pricing formula
     function getPriceFormula(rarity) {
       switch (rarity) {
         case "Common":
@@ -266,7 +269,7 @@ export default {
           return "N/A";
       }
     }
-
+    // FIXME this is calling the rollDie directly which is why calculatePriceForItem isn't working (it isn't being called) 
     function rollPriceForItem(index) {
       const item = foundItems.value[index];
       if (item) {
