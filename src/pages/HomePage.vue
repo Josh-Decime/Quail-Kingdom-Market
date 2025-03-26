@@ -117,7 +117,9 @@
 import { ref, computed, watch } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
+// NOTE might not need html2canvas import here
 import html2canvas from "html2canvas";
+import { printService } from '@/services/PrintService.js';
 
 
 // TODO I need to move these functions to their respective service. I allowed myself to break the structure because it was quicker & easier in the moment, but now I have a mess to clean up & troubleshooting is much more difficult. Its great code clean up practice, & a lesson on why sticking to a structure is so important. 
@@ -203,46 +205,6 @@ export default {
       return { fontSize: '0.75rem' };
     }
 
-    function printPage() {
-      // Hide unwanted elements for cleaner print output
-      const unwantedElements = document.querySelectorAll(".btn, #rollModal");
-      unwantedElements.forEach(el => el.style.display = "none");
-
-      const element = document.body; // Capture the full page
-
-      html2canvas(element, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const printWindow = window.open("", "_blank");
-
-        printWindow.document.write(`
-      <html>
-        <head>
-          <title>The Quail King welcomes you to the..</title>
-          <style>
-            body { margin: 0; text-align: center; font-family: Arial, sans-serif; }
-            img { width: 100%; }
-            .seal { position: fixed; bottom: 10px; right: 10px; width: 100px; }
-          </style>
-        </head>
-        <body>
-          <img src="` + imgData + `" />
-          <script>
-            window.onload = function() { 
-              window.print();
-              window.close();
-            };
-          </` + `script>
-        </body>
-        <footer>Thank you for your patronage</footer>
-      </html>
-    `);
-
-        printWindow.document.close();
-
-        // Restore hidden elements after print
-        unwantedElements.forEach(el => el.style.display = "");
-      });
-    }
 
 
     // FIXME calls the function we want but is not being called anywhere
@@ -321,6 +283,11 @@ export default {
       blackMarketMode.value = !blackMarketMode.value;
     }
 
+    // NOTE print page runs through the print service
+    function printPage() {
+      console.log("print page is being called")
+      printService.printPage()
+    }
 
     return {
       tableRoll,
@@ -338,7 +305,6 @@ export default {
       getHeaderSize,
       getSubTextSize,
       AppState,
-      printPage,
       rollPrice,
       getPriceFormula,
       rollPriceForItem,
@@ -346,13 +312,15 @@ export default {
       getDieForRarity,
       calculatePriceFromRoll,
       blackMarketMode,
-      toggleBlackMarketMode
+      toggleBlackMarketMode,
+      printPage,
     };
   }
 };
 </script>
 
 <style scoped>
+/* NOTE this changes the stylization for CTRL+P printing */
 @media print {
   body {
     margin: 0 !important;
