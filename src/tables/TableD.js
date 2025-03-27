@@ -76,8 +76,8 @@ export const tableD = {
             description: "While holding this tome, you gain a +2 bonus to spell attack rolls and to the saving throw DCs of your wizard spells. It can be used as a spellbook and grants advantage on Arcana checks related to magic lore."
         }),
         new MagicItem({
-            name: "Armor of Invulnerability (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Armor of Invulnerability",
+            rarity: "Legendary",
             type: "Armor",
             weight: 40,
             attunement: true,

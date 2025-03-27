@@ -117,8 +117,6 @@
 import { ref, computed, watch } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
-// NOTE might not need html2canvas import here
-import html2canvas from "html2canvas";
 import { printService } from '@/services/PrintService.js';
 
 
@@ -216,23 +214,11 @@ export default {
 
     // NOTE this is only to display the pricing formula
     function getPriceFormula(rarity) {
-      switch (rarity) {
-        case "Common":
-          return "(1d6 + 1) × 10 gp";
-        case "Uncommon":
-          return "1d6 × 100 gp";
-        case "Rare":
-          return "2d10 × 1,000 gp";
-        case "Very Rare":
-          return "(1d4 + 1) × 10,000 gp";
-        case "Legendary":
-          return "2d6 × 25,000 gp";
-        default:
-          return "N/A";
-      }
+      return MagicItemService.getPriceFormula(rarity)
     }
-    // FIXME this is calling the rollDie directly which is why calculatePriceForItem isn't working (it isn't being called) 
+    // FIXME if this function is updated to roll the correct dice then rollPrice can be deleted
     function rollPriceForItem(index) {
+      console.log("calling rollPriceForItem")
       const item = foundItems.value[index];
       if (item) {
         item.rolledValue = MagicItemService.rollDie(getDieForRarity(item.rarity)); // Roll based on rarity
@@ -242,39 +228,22 @@ export default {
 
 
     function updatePrice(index) {
+      console.log("calling updatePrice")
       const item = foundItems.value[index];
       if (item && item.rolledValue) {
         item.price = calculatePriceFromRoll(item.rarity, item.rolledValue);
       }
     }
 
-    // Determines correct die for rolling
+    // Determines which dice to roll
     function getDieForRarity(rarity) {
-      switch (rarity) {
-        case "Common": return 6;
-        case "Uncommon": return 6;
-        case "Rare": return 10;
-        case "Very Rare": return 4;
-        case "Legendary": return 6;
-        default: return 1;
-      }
+      console.log("calling getDieForRarity")
+      return MagicItemService.getDieForRarity(rarity)
     }
 
     function calculatePriceFromRoll(rarity, roll) {
-      switch (rarity) {
-        case "Common":
-          return (roll + 1) * 10;
-        case "Uncommon":
-          return roll * 100;
-        case "Rare":
-          return roll * 1000;
-        case "Very Rare":
-          return (roll + 1) * 10000;
-        case "Legendary":
-          return roll * 25000;
-        default:
-          return "N/A";
-      }
+      console.log("calling calculatePriceFromRoll")
+      return MagicItemService.calculatePriceFromRoll(rarity, roll)
     }
 
     const blackMarketMode = ref(false);
@@ -283,7 +252,7 @@ export default {
       blackMarketMode.value = !blackMarketMode.value;
     }
 
-    // NOTE print page runs through the print service
+    // NOTE print page utilizes html2canvas to make a screenshot PDF of the webpage. 
     function printPage() {
       console.log("print page is being called")
       printService.printPage()

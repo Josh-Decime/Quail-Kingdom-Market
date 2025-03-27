@@ -531,7 +531,7 @@ export const tableA = {
         }),
         new MagicItem({
             name: "Weapon of Certain Death",
-            rarity: "Common",
+            rarity: "Rare",
             type: "Weapon",
             weight: 3,
             attunement: false,
