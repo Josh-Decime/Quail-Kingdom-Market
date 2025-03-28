@@ -1,6 +1,7 @@
 import { AppState } from '../AppState';
 
 class MagicItemService {
+    // Handles rolling all of the dice
     static rollDie(sides, times = 1, modifier = 0) {
         console.log('sides:', sides, 'times:', times, 'modifier:', modifier);
         let total = 0;
@@ -14,14 +15,17 @@ class MagicItemService {
         return total + modifier;
     }
 
+    // Combines dice roll value & modifiers, for the total value used to find the magic item table
     static calculateTotalRoll(tableRoll, modifier) {
         return (tableRoll || 0) + (modifier || 0);
     }
 
+    // Takes the input value of number of items available & makes that many percentile roll fields available
     static initializePercentileRolls(count) {
         return Array(count || 0).fill(null);
     }
 
+    // Finds which magic item matches the magic item table & item number
     static findMagicItems(totalRoll, percentileRolls) {
         const tableKey = Object.keys(AppState.magicItems).find(key => {
             const range = AppState.magicItems[key].range;
@@ -39,28 +43,7 @@ class MagicItemService {
         }).filter(Boolean);
     }
 
-    // NOTE this gives the number of dice & then multiplies it by the price. When I was making adjustments in an attempt to solve the dice issue I ran into another problem with price calculation not working when I input a value. I think it is important to keep price calculation separately to make input values function. 
-    // So instead of swapping out the current functions with this one I could fix getDieForRarity so it rolls 2 dice for Rare & Legendary. Then this can be deleted.
-    // Or I could remove the price multiplication & use this to roll the dice number & delete rollPriceForItem
-    static calculatePriceForItem(item) {
-        if (!item || !item.rarity) return "N/A";
-
-        switch (item.rarity) {
-            case "Common":
-                return (this.rollDie(6, 1) + 1) * 10;
-            case "Uncommon":
-                return this.rollDie(6, 1) * 100;
-            case "Rare":
-                return this.rollDie(10, 2) * 1000;
-            case "Very Rare":
-                return (this.rollDie(4, 1) + 1) * 10000;
-            case "Legendary":
-                return this.rollDie(6, 2) * 25000;
-            default:
-                return "N/A";
-        }
-    }
-    // just displays the gold cost formula for each rarity
+    // Just displays the gold cost formula for each rarity
     static getPriceFormula(rarity) {
         switch (rarity) {
             case "Common":
@@ -77,18 +60,20 @@ class MagicItemService {
                 return "N/A";
         }
     }
-    // FIXME this is what is giving us the dice to roll instead of calculatePriceForItem. I tried to add (10,2) but it rolls a dice of 2 once.
-    // NOTE this is being called by rollPriceForItem
+
+    // Passes the dice to rollPriceForItem
     static getDieForRarity(rarity) {
         switch (rarity) {
-            case "Common": return 6;
-            case "Uncommon": return 6;
-            case "Rare": return 10;
-            case "Very Rare": return 4;
-            case "Legendary": return 6;
+            case "Common": return { sides: 6, times: 1 };
+            case "Uncommon": return { sides: 6, times: 1 };
+            case "Rare": return { sides: 10, times: 2 };
+            case "Very Rare": return { sides: 4, times: 1 };
+            case "Legendary": return { sides: 6, times: 2 };
             default: return 1;
         }
     }
+
+    // Calculates the price for both rolled & user input values
     static calculatePriceFromRoll(rarity, roll) {
         switch (rarity) {
             case "Common":
@@ -105,7 +90,6 @@ class MagicItemService {
                 return "N/A";
         }
     }
-
 
 
 }

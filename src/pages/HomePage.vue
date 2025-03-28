@@ -70,13 +70,8 @@
                 <p class="price-formula"><em>Price Formula: {{ getPriceFormula(item.rarity) }}</em></p>
               </div>
             </div>
-
-
-
-
-
-
           </div>
+
           <div class="modal-footer">
             <!-- NOTE search item may be redundant -->
             <!-- <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button> -->
@@ -120,7 +115,6 @@ import MagicItemService from '../services/MagicItemService';
 import { printService } from '@/services/PrintService.js';
 
 
-// TODO I need to move these functions to their respective service. I allowed myself to break the structure because it was quicker & easier in the moment, but now I have a mess to clean up & troubleshooting is much more difficult. Its great code clean up practice, & a lesson on why sticking to a structure is so important. 
 export default {
   setup() {
     console.log("Loaded tables in AppState:", AppState.magicItems);
@@ -130,6 +124,8 @@ export default {
     const itemCountRoll = ref(null);
     const percentileRolls = ref([]);
     const foundItems = ref([]);
+    const blackMarketMode = ref(false);
+
     // Watch for foundItems updates and attach price properties
     watch(foundItems, (newItems) => {
       newItems.forEach((item) => {
@@ -138,95 +134,88 @@ export default {
         }
       });
     }, { deep: true });
+
+    // Finds which magic item to select based on the input percentile value
     watch(percentileRolls, (newRolls) => {
       if (newRolls.length) {
         foundItems.value = MagicItemService.findMagicItems(totalRoll.value, newRolls);
-
         // Initialize prices as soon as items are found
         foundItems.value.forEach((item) => {
           item.price = ""; // Keep it empty until the player rolls
         });
-
       }
     }, { deep: true });
 
-
+    // Updates modal input fields when values change
     watch([tableRoll, modifier], () => {
       itemCountRoll.value = null;  // Reset item count
       percentileRolls.value = [];  // Clear percentile rolls
       foundItems.value = [];       // Clear found items
-
       // Recalculate totalRoll inside the watcher to avoid referencing it too soon
       const newTotalRoll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
-
     }, { flush: 'post' });  // Ensure it runs after Vue initializes
 
-
-
+    // Combines the dice roll value, modifiers, &/or black market mode to calculate the total roll value which is used to determine which magic items table is available 
     const totalRoll = computed(() => {
       let roll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
       return blackMarketMode.value ? roll + 1000 : roll;
     });
 
-
+    // Rolls to determine which magic items table is available
     function rollTable() {
       tableRoll.value = MagicItemService.rollDie(20);
     }
 
+    // Rolls to determine how many magic items are available
     function rollItemCount() {
       itemCountRoll.value = MagicItemService.rollDie(4);
       updatePercentileInputs();
     }
 
-    function updatePercentileInputs() {
-      percentileRolls.value = MagicItemService.initializePercentileRolls(itemCountRoll.value);
-    }
-
+    // Rolls to determine which magic items from the table are chosen
     function rollPercentile(index) {
       percentileRolls.value[index] = MagicItemService.rollDie(100);
     }
 
-    // NOTE This might be redundant now that items are updated as values are input. The search items button now closes the modal instead
+    // Adjusts available percentile input fields based on the results of the items count (d4 roll)
+    function updatePercentileInputs() {
+      percentileRolls.value = MagicItemService.initializePercentileRolls(itemCountRoll.value);
+    }
+
+    // TODO No longer being used, can be removed
     function searchItems() {
       foundItems.value = MagicItemService.findMagicItems(totalRoll.value, percentileRolls.value);
     }
 
+    // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
       return description.length > 800 ? { fontSize: '0.85rem' } : { fontSize: '1rem' };
     }
-
     function getHeaderSize(item) {
       return { fontSize: item.description.length > 800 ? '1rem' : '1.25rem' };
     }
-
     function getSubTextSize(item) {
       return { fontSize: '0.75rem' };
     }
 
-
-
-    // FIXME calls the function we want but is not being called anywhere
-    function rollPrice(index) {
-      if (foundItems.value[index]) {
-        foundItems.value[index].price = MagicItemService.calculatePriceForItem(foundItems.value[index]);
-      }
-    }
-
-    // NOTE this is only to display the pricing formula
+    // Is only to display the pricing formula
     function getPriceFormula(rarity) {
       return MagicItemService.getPriceFormula(rarity)
     }
-    // FIXME if this function is updated to roll the correct dice then rollPrice can be deleted
+
+    // Rolls the dice to determine the price of an item
     function rollPriceForItem(index) {
-      console.log("calling rollPriceForItem")
+      console.log("calling rollPriceForItem");
       const item = foundItems.value[index];
       if (item) {
-        item.rolledValue = MagicItemService.rollDie(getDieForRarity(item.rarity)); // Roll based on rarity
-        updatePrice(index); // Update price immediately
+        const { sides, times } = MagicItemService.getDieForRarity(item.rarity);
+        item.rolledValue = MagicItemService.rollDie(sides, times);
+        updatePrice(index);
       }
     }
 
-
+    // Updates the price whenever the item prices input field is changed & when the roll button is clicked
+    // TODO Should be moved to the MagicItemService
     function updatePrice(index) {
       console.log("calling updatePrice")
       const item = foundItems.value[index];
@@ -235,24 +224,24 @@ export default {
       }
     }
 
-    // Determines which dice to roll
+    // Determines which dice to roll & how many
     function getDieForRarity(rarity) {
       console.log("calling getDieForRarity")
       return MagicItemService.getDieForRarity(rarity)
     }
 
+    // TODO Re-name "calculatePrice", since it is calculating the price from webpage rolls & user input of physical dice values
     function calculatePriceFromRoll(rarity, roll) {
       console.log("calling calculatePriceFromRoll")
       return MagicItemService.calculatePriceFromRoll(rarity, roll)
     }
 
-    const blackMarketMode = ref(false);
-
+    // Toggles the black market, which adds 1000 to the roll to chose homebrew item tables instead of official items
     function toggleBlackMarketMode() {
       blackMarketMode.value = !blackMarketMode.value;
     }
 
-    // NOTE print page utilizes html2canvas to make a screenshot PDF of the webpage. 
+    // Utilizes html2canvas to make a screenshot PDF of the webpage. 
     function printPage() {
       console.log("print page is being called")
       printService.printPage()
@@ -274,7 +263,6 @@ export default {
       getHeaderSize,
       getSubTextSize,
       AppState,
-      rollPrice,
       getPriceFormula,
       rollPriceForItem,
       updatePrice,
