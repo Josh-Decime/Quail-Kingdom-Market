@@ -30,7 +30,7 @@ class PrintService {
             };
           </script>
         </body>
-        <footer>Thank you for your patronage</footer>
+        <footer>DM Authorization Signature: _________________________</footer>
       </html>
     `);
 

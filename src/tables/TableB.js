@@ -289,7 +289,7 @@ export const tableB = {
             type: "Wondrous Item",
             weight: 0,
             attunement: false,
-            range: [38, 38],
+            range: [37, 38],
             description: "A bronze griffon that can become a living griffon for up to 6 hours. It can't be used again until 5 days have passed."
         }),
         new MagicItem({
@@ -642,7 +642,7 @@ export const tableB = {
             type: "Wondrous Item",
             weight: 1,
             attunement: false,
-            range: [84, 85],
+            range: [84, 87],
             description: "This robe has various cloth patches sewn into it. While wearing the robe, you can use an action to detach one of the patches, causing it to become the object or creature it represents. The robe comes with a selection of standard patches and may include others determined randomly."
         }),
         new MagicItem({
@@ -651,8 +651,8 @@ export const tableB = {
             type: "Wondrous Item",
             weight: 3,
             attunement: false,
-            range: [90, 90],
-            description: "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end and use an action to speak the command word, the rope animates and moves according to your command."
+            range: [88, 90],
+            description: "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds.\n\nIf you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose. That end moves 10 feet on your turn when you first command it and 10 feet on each of your turns until reaching its destination, up to its maximum length away, or until you tell it to stop.\n\nYou can also tell the rope to fasten itself securely to an object or to unfasten itself, to knot or unknot itself, or to coil itself for carrying.\n\nIf you tell the rope to knot, large knots appear at 1-foot intervals along the rope. While knotted, the rope shortens to a 50-foot length and grants advantage on checks made to climb it.\n\nThe rope has AC 20 and 20 hit points. It regains 1 hit point every 5 minutes as long as it has at least 1 hit point. If the rope drops to 0 hit points, it is destroyed."
         }),
         new MagicItem({
             name: "Saddle of the Cavalier",

@@ -89,7 +89,8 @@
           <div class="card p-3 shadow-sm item-card">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title" :style="getHeaderSize(item)">{{ item.name }}</h5>
-              <p v-if="item.price" class="card-price"><strong>{{ item.price }} gp</strong></p>
+              <p v-if="item.price" class="card-price" :style="getSubTextSize(item)"><strong>{{ item.price }} gp</strong>
+              </p>
             </div>
             <div class="item-details" :class="{ 'inline-details': item.description.length > 800 }">
               <p :style="getSubTextSize(item)" class="small-text"><strong>Rarity:</strong> {{ item.rarity }}</p>
@@ -189,13 +190,13 @@ export default {
 
     // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
-      return description.length > 800 ? { fontSize: '0.85rem' } : { fontSize: '1rem' };
+      return description.length > 800 ? { fontSize: '1.2rem' } : { fontSize: '2rem' };
     }
     function getHeaderSize(item) {
-      return { fontSize: item.description.length > 800 ? '1rem' : '1.25rem' };
+      return { fontSize: item.description.length > 800 ? '2rem' : '2.5rem' };
     }
     function getSubTextSize(item) {
-      return { fontSize: '0.75rem' };
+      return { fontSize: '1.5rem' };
     }
 
     // Is only to display the pricing formula
@@ -358,7 +359,7 @@ export default {
 /*  */
 
 .formatted-text {
-  font-size: 0.7rem;
+  font-size: 1.4rem;
   line-height: 1.2;
   word-wrap: break-word;
   /* Ensures text doesn't overflow */
@@ -367,12 +368,12 @@ export default {
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  height: 10in;
+  height: 15in;
   padding: 1.5rem;
 }
 
 .item-card {
-  height: 5in;
+  height: 7.5in;
   overflow: hidden;
 }
 
@@ -394,7 +395,7 @@ export default {
 }
 
 .small-text {
-  font-size: 0.7rem;
+  font-size: 1.4rem;
   /* Makes rarity, type, and weight smaller */
   margin-bottom: 0;
   /* Removes unnecessary space */
