@@ -584,7 +584,7 @@ export const tableB = {
 
         new MagicItem({
             name: "Helm of Telepathy",
-            rarity: "Uncommon",
+            rarity: "Rare",
             type: "Wondrous Item",
             weight: 1,
             attunement: true,

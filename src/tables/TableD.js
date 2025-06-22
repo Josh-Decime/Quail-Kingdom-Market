@@ -67,13 +67,13 @@ export const tableD = {
             description: "You can speak a command word as a bonus action to cause this shield to animate. It floats in your space, granting you its bonus to AC without needing to hold it. The shield remains animated for 1 minute or until you use a bonus action to end the effect."
         }),
         new MagicItem({
-            name: "Arcane Grimoire (+2)",
+            name: "Arcane Grimoire (+3)",
             rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 3,
             attunement: true,
             range: [10, 10],
-            description: "While holding this tome, you gain a +2 bonus to spell attack rolls and to the saving throw DCs of your wizard spells. It can be used as a spellbook and grants advantage on Arcana checks related to magic lore."
+            description: "While holding this tome, you gain a +3 bonus to spell attack rolls and to the saving throw DCs of your wizard spells. It can be used as a spellbook and grants advantage on Arcana checks related to magic lore."
         }),
         new MagicItem({
             name: "Armor of Invulnerability",
@@ -85,8 +85,8 @@ export const tableD = {
             description: "You have resistance to nonmagical damage while wearing this armor. Once per day, you can use an action to gain immunity to nonmagical damage for 10 minutes."
         }),
         new MagicItem({
-            name: "Armor of Resistance (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Armor of Resistance",
+            rarity: "Rare",
             type: "Armor",
             weight: 40,
             attunement: true,
@@ -130,8 +130,8 @@ export const tableD = {
             description: "Your Strength score is 23 while you wear this belt. It has no effect if your Strength is already 23 or higher."
         }),
         new MagicItem({
-            name: "Belt of Hill Giant Strength (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Belt of Hill Giant Strength",
+            rarity: "Rare",
             type: "Wondrous Item",
             weight: 3,
             attunement: true,
@@ -139,8 +139,8 @@ export const tableD = {
             description: "Your Strength score is 21 while you wear this belt. It has no effect if your Strength is already 21 or higher."
         }),
         new MagicItem({
-            name: "Blackrazor (Very Rare variant if applicable)",
-            rarity: "Very Rare",
+            name: "Blackrazor",
+            rarity: "Legendary",
             type: "Weapon (Greatsword)",
             weight: 6,
             attunement: true,
@@ -166,17 +166,17 @@ export const tableD = {
             description: "You gain resistance to poison damage, immunity to the poisoned condition, the ability to climb difficult surfaces including upside down, and you can cast *web* once per long rest."
         }),
         new MagicItem({
-            name: "Cloak of Invisibility (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Cloak of Invisibility",
+            rarity: "Legendary",
             type: "Wondrous Item",
             weight: 1,
             attunement: true,
             range: [25, 25],
-            description: "While wearing this cloak, you can pull the hood over your head to become invisible. The effect lasts up to 2 hours per day, which can be used in increments of 1 minute."
+            description: "While wearing this cloak, you can pull the hood over your head to become invisible. The effect lasts up to 2 hours per day, which can be used in increments of 1 minute. For every uninterupted period of 12 hours the cloak goes unused, it regains 1 hour of duration."
         }),
         new MagicItem({
-            name: "Cloak of the Bat (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Cloak of the Bat",
+            rarity: "Rare",
             type: "Wondrous Item",
             weight: 1,
             attunement: true,
@@ -184,7 +184,7 @@ export const tableD = {
             description: "You can fly in dim light or darkness and have advantage on Stealth checks made in such conditions. You can also polymorph into a bat once per long rest."
         }),
         new MagicItem({
-            name: "Crystal Ball (Very Rare variant)",
+            name: "Crystal Ball",
             rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 3,
@@ -193,8 +193,8 @@ export const tableD = {
             description: "This crystal ball allows you to cast the *scrying* spell (save DC 17). Some versions grant additional abilities, such as *detect thoughts* or *clairvoyance* while scrying."
         }),
         new MagicItem({
-            name: "Dagger of Venom (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Dagger of Venom",
+            rarity: "Rare",
             type: "Weapon (Dagger)",
             weight: 1,
             attunement: false,
@@ -202,8 +202,8 @@ export const tableD = {
             description: "You gain a +1 bonus to attack and damage rolls made with this magic weapon. You can use an action to cause thick black poison to coat the blade. The poison remains for 1 minute or until an attack hits. The target must succeed on a DC 15 Constitution saving throw or take 2d10 poison damage and become poisoned for 1 minute."
         }),
         new MagicItem({
-            name: "Defender (Very Rare variant if applicable)",
-            rarity: "Very Rare",
+            name: "Defender",
+            rarity: "Legendary",
             type: "Weapon (Any Sword)",
             weight: 3,
             attunement: true,
@@ -220,8 +220,8 @@ export const tableD = {
             description: "While wearing this armor, you gain advantage on saving throws against the breath weapons of dragons, and you have resistance to one type of damage associated with the dragon type. Additionally, you can sense the presence of dragons within 30 miles."
         }),
         new MagicItem({
-            name: "Dragon Slayer (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Dragon Slayer",
+            rarity: "Rare",
             type: "Weapon (Any Sword)",
             weight: 3,
             attunement: false,
@@ -238,8 +238,8 @@ export const tableD = {
             description: "While wearing this armor, you gain a +2 bonus to AC. In addition, if a creature knocks you prone, you can use your reaction to remain standing."
         }),
         new MagicItem({
-            name: "Dwarven Thrower (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Dwarven Thrower",
+            rarity: "Rare",
             type: "Weapon (Warhammer)",
             weight: 2,
             attunement: true,
@@ -256,8 +256,8 @@ export const tableD = {
             description: "You can use an action to remove the stopper and release an efreeti. Depending on a roll, the efreeti might serve you, attack you, or grant three wishes. Once used, the bottle can't be used again for 24 hours."
         }),
         new MagicItem({
-            name: "Flame Tongue (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Flame Tongue",
+            rarity: "Rare",
             type: "Weapon (Any Sword)",
             weight: 3,
             attunement: true,
@@ -265,8 +265,8 @@ export const tableD = {
             description: "You can use a bonus action to speak this magic sword’s command word, causing flames to erupt from the blade. These flames shed bright light in a 40-foot radius and dim light for an additional 40 feet. While ablaze, the sword deals an extra 2d6 fire damage to any target it hits."
         }),
         new MagicItem({
-            name: "Frost Brand (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Frost Brand",
+            rarity: "Rare",
             type: "Weapon (Any Sword)",
             weight: 3,
             attunement: true,
@@ -292,8 +292,8 @@ export const tableD = {
             description: "You gain a +1 bonus to attack and damage rolls. When you hit a giant with it, the giant takes an extra 2d6 damage. The target must succeed on a DC 15 Strength saving throw or fall prone."
         }),
         new MagicItem({
-            name: "Wings of Flying (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Wings of Flying",
+            rarity: "Rare",
             type: "Wondrous Item",
             weight: 1,
             attunement: true,
@@ -310,8 +310,8 @@ export const tableD = {
             description: "You must be wearing a Belt of Giant Strength and Gauntlets of Ogre Power to wield this weapon properly. If so, it becomes a +1 weapon. On a hit, it deals an extra 2d6 thunder damage. When you throw it and speak its command word, it emits a thunderclap in a 300-foot radius. Each creature within 30 feet (not including you) must make a DC 17 Constitution save or be stunned until your next turn."
         }),
         new MagicItem({
-            name: "Holy Avenger (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Holy Avenger",
+            rarity: "Legendary",
             type: "Weapon (any sword)",
             weight: 3,
             attunement: true,
@@ -364,17 +364,17 @@ export const tableD = {
             description: "This mirror can trap up to 12 creatures inside its extradimensional cells. If a creature sees its reflection, it must succeed on a DC 15 Charisma save or be trapped. Destroying the mirror frees all creatures."
         }),
         new MagicItem({
-            name: "Nine Lives Stealer (Very Rare variant)",
+            name: "Nine Lives Stealer",
             rarity: "Very Rare",
             type: "Weapon (any sword)",
             weight: 3,
             attunement: true,
             range: [54, 54],
-            description: "This magic weapon has 1d8 + 1 charges. When you reduce a creature to 0 hit points, you can expend 1 charge to force it to make a DC 15 Constitution saving throw. On a fail, it dies instantly. Charges recharge at dawn."
+            description: "Gain a +2 bonus to attack and damage rolls made with this magic weapon. This magic weapon has 1d8 + 1 charges. When you reduce a creature to 0 hit points, you can expend 1 charge to force it to make a DC 15 Constitution saving throw. On a fail, it dies instantly. Charges recharge at dawn."
         }),
         new MagicItem({
-            name: "Oathbow (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Oathbow",
+            rarity: "Rare",
             type: "Weapon (longbow)",
             weight: 2,
             attunement: true,
@@ -589,8 +589,8 @@ export const tableD = {
             description: "This staff lets you cast **lightning bolt**, **thunderclap**, and similar spells using charges. You can also use special thunder/lightning effects on hit. It regains 1d6 + 4 charges daily."
         }),
         new MagicItem({
-            name: "Staff of Withering (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Staff of Withering",
+            rarity: "Rare",
             type: "Staff",
             weight: 4,
             attunement: true,
@@ -598,8 +598,8 @@ export const tableD = {
             description: "This staff deals necrotic damage and reduces target's Strength on hit. It also functions as a magic quarterstaff and regains 1d6 + 4 charges daily at dawn."
         }),
         new MagicItem({
-            name: "Sun Blade (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Sun Blade",
+            rarity: "Rare",
             type: "Weapon (Longsword)",
             weight: 3,
             attunement: true,
@@ -607,8 +607,8 @@ export const tableD = {
             description: "This sword emits bright sunlight and deals radiant damage instead of slashing. It has a +2 bonus to attack and damage rolls, and deals extra damage to undead."
         }),
         new MagicItem({
-            name: "Sword of Answering (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Sword of Answering",
+            rarity: "Legendary",
             type: "Weapon (Any sword)",
             weight: 3,
             attunement: true,
@@ -616,8 +616,8 @@ export const tableD = {
             description: "This sword grants a bonus to initiative and lets you use a reaction to counterattack when hit in melee. Only a few such swords exist, each aligned to a specific alignment."
         }),
         new MagicItem({
-            name: "Sword of Life Stealing (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Sword of Life Stealing",
+            rarity: "Rare",
             type: "Weapon (Any sword)",
             weight: 3,
             attunement: true,
@@ -634,8 +634,8 @@ export const tableD = {
             description: "When you score a critical hit with this weapon, you roll an extra damage die and may lop off limbs if the target has any. Deals extra slashing damage."
         }),
         new MagicItem({
-            name: "Sword of Wounding (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Sword of Wounding",
+            rarity: "Rare",
             type: "Weapon (Any sword)",
             weight: 3,
             attunement: true,
@@ -643,8 +643,8 @@ export const tableD = {
             description: "This weapon causes wounds that can’t heal normally. At the start of each of the wounded creature’s turns, it takes 1d4 necrotic damage for each wound it has. A creature can make a DC 15 Con check to stop the bleeding."
         }),
         new MagicItem({
-            name: "Scimitar of Speed (Very Rare variant)",
-            rarity: "Very Rare",
+            name: "Scimitar of Speed",
+            rarity: "Rare",
             type: "Weapon (Scimitar)",
             weight: 3,
             attunement: true,

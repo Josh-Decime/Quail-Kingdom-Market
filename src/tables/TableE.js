@@ -5,7 +5,7 @@ export const tableE = {
     items: [
         new MagicItem({
             name: "Apparatus of Kwalish",
-            rarity: "Legendary",
+            rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 500,
             attunement: false,
@@ -23,7 +23,7 @@ export const tableE = {
         }),
         new MagicItem({
             name: "Belt of Fire Giant Strength",
-            rarity: "Legendary",
+            rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 3,
             attunement: true,
@@ -50,7 +50,7 @@ export const tableE = {
         }),
         new MagicItem({
             name: "Crystal Ball of Mind Reading",
-            rarity: "Legendary",
+            rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 4,
             attunement: true,
@@ -68,7 +68,7 @@ export const tableE = {
         }),
         new MagicItem({
             name: "Efreeti Chain",
-            rarity: "Legendary",
+            rarity: "Very Rare",
             type: "Armor (chain mail)",
             weight: 55,
             attunement: true,
@@ -158,7 +158,7 @@ export const tableE = {
         }),
         new MagicItem({
             name: "Ring of Spell Turning",
-            rarity: "Legendary",
+            rarity: "Very Rare",
             type: "Ring",
             weight: 0,
             attunement: true,

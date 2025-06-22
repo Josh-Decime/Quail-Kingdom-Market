@@ -190,13 +190,13 @@ export default {
 
     // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
-      return description.length > 800 ? { fontSize: '1.2rem' } : { fontSize: '2rem' };
+      return description.length > 800 ? { fontSize: '1rem' } : { fontSize: '1.8rem' };
     }
     function getHeaderSize(item) {
-      return { fontSize: item.description.length > 800 ? '2rem' : '2.5rem' };
+      return { fontSize: item.description.length > 800 ? '1.8rem' : '2.3rem' };
     }
     function getSubTextSize(item) {
-      return { fontSize: '1.5rem' };
+      return { fontSize: '1.3rem' };
     }
 
     // Is only to display the pricing formula

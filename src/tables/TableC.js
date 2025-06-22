@@ -130,13 +130,13 @@ export const tableC = {
             description: "You have resistance to one type of damage while wearing this armor. The type is determined randomly or selected by the DM from the following: acid, cold, fire, force, lightning, necrotic, poison, psychic, radiant, or thunder."
         }),
         new MagicItem({
-            name: "Armor, +1 (Rare variant for heavy/medium)",
+            name: "Armor, +2 (Rare variant for heavy/medium)",
             rarity: "Rare",
             type: "Armor",
             weight: 40,
             attunement: false,
             range: [22, 23],
-            description: "You have a +1 bonus to AC while wearing this armor. This version applies to heavy or medium armors and is more durable than the uncommon variant."
+            description: "You have a +2 bonus to AC while wearing this armor. This version applies to heavy or medium armors and is more durable than the uncommon variant."
         }),
         new MagicItem({
             name: "Armor of Vulnerability",
@@ -410,7 +410,7 @@ export const tableC = {
         }),
         new MagicItem({
             name: "Manual of Golems (some versions)",
-            rarity: "Rare",
+            rarity: "Very Rare",
             type: "Wondrous Item",
             weight: 5,
             attunement: false,
@@ -428,7 +428,7 @@ export const tableC = {
         }),
         new MagicItem({
             name: "Staff of the Python",
-            rarity: "Rare",
+            rarity: "Uncommon",
             type: "Staff",
             weight: 4,
             attunement: true,
