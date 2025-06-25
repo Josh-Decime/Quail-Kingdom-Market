@@ -1,83 +1,50 @@
-<!-- Table B needs redone -->
-Wand of Magic Detection
-Wand of Magic Missiles
-Wand of Secrets
-Wand of the War Mage, +1
-Wand of Conducting
-Arcane Grimoire
-Weapon, +1
-Weapon of Warning
-Wind Fan
-Spell Scroll (2nd Level)
-Adamantine Armor
-Alchemy Jug
-Ammunition, +1
-Amulet of Proof Against Detection and Location
-Bag of Holding
-Bag of Tricks (Gray)
-Bag of Tricks (Rust)
-Bag of Tricks (Tan)
-Boots of Elvenkind
-Boots of Striding and Springing
-Boots of the Winterlands
-Bracers of Archery
-Brooch of Shielding
-Broom of Flying
-Circlet of Blasting
-Ring of Jumping
-Ring of Mind Shielding
-Ring of Swimming
-Ring of Warmth
-Ring of Water Walking
-Decanter of Endless Water
-Figurine of Wondrous Power (Bronze Griffon)
-Figurine of Wondrous Power (Ebony Fly)
-Figurine of Wondrous Power (Golden Lions)
-Figurine of Wondrous Power (Ivory Goats)
-Figurine of Wondrous Power (Marble Elephant)
-Figurine of Wondrous Power (Onyx Dog)
-Figurine of Wondrous Power (Serpentine Owl)
-Deck of Illusions
-Driftglobe
-Efficient Quiver
-Eversmoking Bottle
-Eyes of Charming
-Eyes of Minute Seeing
-Eyes of the Eagle
-Pipes of Haunting
-Pipes of the Sewers
-Gauntlets of Ogre Power
-Gem of Brightness
-Gloves of Missile Snaring
-Gloves of Swimming and Climbing
-Goggles of Night
-Cloak of Elvenkind
-Cloak of Protection
-Cloak of the Manta Ray
-Hat of Disguise
-Headband of Intellect
-Helm of Comprehending Languages
-Helm of Telepathy
-Horseshoes of Speed
-Immovable Rod
-Keoghtom’s Ointment
-Lantern of Revealing
-Medallion of Thoughts
-Spell Scroll (3rd Level)
-Mithral Armor
-Periapt of Health
-Periapt of Wound Closure
-Portable Hole
-Quiver of Ehlonna
-Robe of Useful Items
-Rope of Climbing
-Saddle of the Cavalier
-Sending Stones
-Slippers of Spider Climbing
-Staff of the Python
-Trident of Fish Command
-Winged Boots
-Wingwear
-Wheel of Wind and Water
-Wings of Flying
-Stone of Good Luck (Luckstone)
+Bracers of Spiderkind (1-2)
+Cloak of Acid (3-4)
+Crown of Thorns (5-6)
+Crystal of Health (7-8)
+Cufflinks of Warding (9-10)
+Dead-Eye's Eyepatch (11-12)
+Decanter of Endless Milk (13-14)
+Deck of Infinite Whimsy (15-16)
+Demon Mask (17-18)
+Deteriorating Bracer (19-20)
+Acrobat's Staff (21-22)
+Adamas Weapon (23-24)
+Black Key (25-26)
+Blade of Bludgeoning (27-28)
+Cosmic Steel Weapon (29-30)
+Coward's Knife (31-32)
+Dagger of the Unseen Hand (33-34)
+Dark Render (35-36)
+Enchanted Stick (37-38)
+Feathered Weapon (39-40)
+Scavenger's Bow (41-42)
+Sinister Looking Letter Opener (43-44)
+Slime Sword (45-46)
+Spark Rod (47-48)
+The Gravedigger (49-50)
+Connected Hand-Mirrors (51-52)
+Dagger of Denial (53-54)
+Trinket Tracker Compass (55-56)
+Beastmaster Armor (57-58)
+Lost Room Key (59-60)
+Self-Directed Compass (61-62)
+Fool's Compass (63-64)
+Comb of Cleanliness (65-66)
+Magical Hand Mirror (67-68)
+Amulets of HP Transfer (69-70)
+Luminous Chair of Amplification (71-72)
+Maul of Teleportation (73-74)
+Old Reliable (75-76)
+Accuracy Stone (77-78)
+Bolt of Step (79-80)
+Fine Mustache (81-82)
+Flask of Perpetual Booze (83-84)
+All-or-Nothing Coin (85-86)
+Adventurer's Harness (87-88)
+Pet Rock (89-90)
+Bag of Withholding (91-92)
+Companion Rock (93-94)
+Cloak of Steve (95-96)
+Magic Marker (97-98)
+Stone of Sending (99-100)
