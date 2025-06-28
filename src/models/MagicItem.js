@@ -9,5 +9,6 @@ export class MagicItem {
         this.price = data.price || null;
         this.isConsumable = data.isConsumable || false
         this.range = data.range || null
+        this.blackMarket = data.blackMarket || false
     }
 }

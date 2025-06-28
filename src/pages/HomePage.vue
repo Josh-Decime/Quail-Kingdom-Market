@@ -88,12 +88,12 @@
         <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
           <div class="card p-3 shadow-sm item-card">
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title" :style="getHeaderSize(item)">{{ item.name }}</h5>
-              <p v-if="item.price" class="card-price" :style="getSubTextSize(item)"><strong>{{ item.price }} gp</strong>
-              </p>
+              <h5 class="card-title" :class="{ 'black-market-text': item.blackMarket }" :style="getHeaderSize(item)">{{ item.name }}</h5>
+              <p v-if="item.price" class="card-price" :class="{ 'black-market-price': item.blackMarket }" :style="getSubTextSize(item)"><strong>{{ item.price }} gp</strong></p>
             </div>
             <div class="item-details" :class="{ 'inline-details': item.description.length > 800 }">
-              <p :style="getSubTextSize(item)" class="small-text"><strong>Rarity:</strong> {{ item.rarity }}</p>
+              <p v-if="item.blackMarket" :style="getSubTextSize(item)" class="small-text"><strong>Black Market Item</strong></p>
+              <p :style="getSubTextSize(item)" class="small-text"><strong>{{ item.blackMarket ? 'Estimated Rarity' : 'Rarity' }}:</strong> {{ item.rarity }}</p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>Type:</strong> {{ item.type }}</p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>Weight:</strong> {{ item.weight }} lbs</p>
               <p v-if="item.attunement" :style="getSubTextSize(item)" class="small-text"><strong>Requires
@@ -407,5 +407,15 @@ export default {
   color: #4a2c2a;
   /* Dark brown to match theme */
   margin-bottom: 5px;
+}
+
+.black-market-text {
+  background-color: black;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 8px;
+}
+.black-market-price {
+  color: #838383; 
 }
 </style>
