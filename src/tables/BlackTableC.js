@@ -1,7 +1,7 @@
 import { MagicItem } from '../models/MagicItem.js';
 
 export const blackMarketTableC = {
-    range: [1, 100],
+    range: [1019, 1027],
     items: [
         new MagicItem({
             name: "Blade of the Arcane",

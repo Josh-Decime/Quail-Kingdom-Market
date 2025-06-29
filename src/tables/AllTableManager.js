@@ -6,6 +6,7 @@ import tableE from "./TableE.js";
 import blackMarketTableA from "./BlackTableA.js";
 import blackMarketTableB from "./BlackTableB.js";
 import blackMarketTableC from "./BlackTableC.js";
+import blackMarketTableD from "./BlackTableD.js";
 
 export const AllTables = {
     A: tableA,
@@ -16,6 +17,7 @@ export const AllTables = {
     BMA: blackMarketTableA,
     BMB: blackMarketTableB,
     BMC: blackMarketTableC,
+    BMD: blackMarketTableD,
 };
 
 export default AllTables; // ✅ Add default export
