@@ -21,6 +21,8 @@
         <li><strong>+1 bonus</strong> for every 100 gp spent on finding a seller</li>
         <li><strong>Maximum total bonus of +10</strong></li>
       </ul>
+
+      <p><strong>A +10 or -10 modifier can be added for high or low magic campaigns</strong></p>
       
       <p><strong>The monetary cost includes a wealthy lifestyle, for a buyer must impress potential business partners.</strong></p>
       
@@ -55,14 +57,31 @@
               </div>
             </div>
 
-            <!-- Modifier Input -->
-            <div class="mb-3">
-              <label>Modifier (Gold Spent, Downtime, Charisma):</label>
-              <div class="input-group">
-                <input v-model.number="modifier" type="number" class="form-control" placeholder="Enter modifier" />
-                <span class="input-group-text">Total: {{ totalRoll }}</span>
-              </div>
-            </div>
+      <!-- Modifier Input -->
+      <div class="mb-3">
+        <label>
+          Modifier (Gold Spent, Downtime, Charisma):
+          <span class="info-icon ms-1">
+            ?
+            <span class="tooltip-text">
+              <strong>Modifier Calculation:</strong><br>
+              • Charisma modifier<br>
+              • +1 per extra workweek<br>
+              • +1 per 100gp spent<br>
+              • Max +10 from time/gold<br>
+              <em>(Ex: +5 Cha + 10 bonus = +15 total)</em><br>
+              <strong>Additionally:</strong><br>
+                • +10 high magic campaigns<br>
+                • -10 low magic campaigns<br>
+              <em>(Ex: +15 mod +10 high magic = +25 total)</em><br>
+            </span>
+          </span>
+        </label>
+        <div class="input-group">
+          <input v-model.number="modifier" type="number" class="form-control" placeholder="Enter modifier" />
+          <span class="input-group-text">Total: {{ totalRoll }}</span>
+        </div>
+      </div>
 
             <!-- Item Count Roll (d4) -->
             <div class="mb-3">
@@ -138,7 +157,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
 import { printService } from '@/services/PrintService.js';
@@ -184,6 +203,8 @@ export default {
       const newTotalRoll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
     }, { flush: 'post' });  // Ensure it runs after Vue initializes
 
+    
+
     // Combines the dice roll value, modifiers, &/or black market mode to calculate the total roll value which is used to determine which magic items table is available 
     const totalRoll = computed(() => {
       let roll = MagicItemService.calculateTotalRoll(tableRoll.value, modifier.value);
@@ -218,13 +239,28 @@ export default {
 
     // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
-      return description.length > 800 ? { fontSize: '1rem' } : { fontSize: '1.8rem' };
+      const length = description.length;
+      if (length > 1200) return { fontSize: '0.9rem' };      // Very long
+      if (length > 800) return { fontSize: '1rem' };        // Long  
+      if (length > 600) return { fontSize: '1.2rem' };      // Medium-long
+      if (length > 400) return { fontSize: '1.4rem' };      // Medium
+      return { fontSize: '1.8rem' };                        // Short
     }
+
     function getHeaderSize(item) {
-      return { fontSize: item.description.length > 800 ? '1.8rem' : '2.3rem' };
+      const length = item.description.length;
+      if (length > 1200) return { fontSize: '1.6rem' };     // Very long
+      if (length > 800) return { fontSize: '1.8rem' };      // Long
+      if (length > 600) return { fontSize: '2.0rem' };      // Medium-long  
+      if (length > 400) return { fontSize: '2.1rem' };      // Medium
+      return { fontSize: '2.3rem' };                        // Short
     }
+
     function getSubTextSize(item) {
-      return { fontSize: '1.3rem' };
+      const length = item.description.length;
+      if (length > 1200) return { fontSize: '1.1rem' };     // Very long
+      if (length > 800) return { fontSize: '1.2rem' };      // Long
+      return { fontSize: '1.3rem' };                        // Medium/Short
     }
 
     // Is only to display the pricing formula
@@ -415,6 +451,7 @@ export default {
 .inline-details {
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .compact-hr {
@@ -445,5 +482,59 @@ export default {
 }
 .black-market-price {
   color: #838383; 
+}
+
+.info-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: help;
+  user-select: none;
+}
+
+.info-icon:hover {
+  background-color: #495057;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 280px;
+  background-color: #333;
+  color: white;
+  text-align: left;
+  border-radius: 6px;
+  padding: 12px;
+  position: absolute;
+  z-index: 9999;
+  top: -120px;
+  left: 50%;
+  margin-left: -140px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1.4;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.info-icon:hover .tooltip-text {
+  visibility: visible;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
 }
 </style>
