@@ -4,6 +4,34 @@
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
     <button class="btn btn-secondary ms-2" @click="printPage">Print Items</button>
 
+<!-- Downtime Rules Display -->
+<div v-if="!foundItems.length" class="mt-4 p-4 bg-light border rounded">
+  <h4>Buying a Magic Item</h4>
+  <p class="mb-3"><em>Downtime Activity from Xanathar's Guide to Everything</em></p>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <p><strong>Purchasing a magic item requires time and money to seek out and contact people willing to sell items.</strong> Even then, there is no guarantee a seller will have the item a character wants.</p>
+      
+      <p><strong>Resources:</strong> Finding magic items to purchase requires <strong>at least one workweek of effort and 100 gp in expenses.</strong> Spending more time and money increases your chance of finding a high-quality item.</p>
+      
+      <p><strong>Resolution:</strong> A character seeking to buy a magic item makes a <strong>Charisma (Persuasion) check</strong> to determine the quality of the seller found. The character gains:</p>
+      <ul>
+        <li><strong>+1 bonus</strong> for every workweek beyond the first spent seeking a seller</li>
+        <li><strong>+1 bonus</strong> for every 100 gp spent on finding a seller</li>
+        <li><strong>Maximum total bonus of +10</strong></li>
+      </ul>
+      
+      <p><strong>The monetary cost includes a wealthy lifestyle, for a buyer must impress potential business partners.</strong></p>
+      
+      <p><strong>How to Use This Tool:</strong> Roll a d20 and add your Charisma modifier. Then add your bonuses for extra time (workweeks) and money (100 gp increments) spent. Enter this total as your "Modifier" when using the tool above.</p>
+    </div>
+  </div>
+  
+  <div class="mt-3 p-3 bg-primary text-white rounded">
+    <strong>Ready to Start?</strong> Click "Find Magic Items" above to make your Charisma (Persuasion) check and discover what items are available for purchase!
+  </div>
+</div>
 
     <!-- Modal for Rolling and Searching Items -->
     <div class="modal fade" id="rollModal" tabindex="-1" aria-labelledby="rollModalLabel" aria-hidden="true">
