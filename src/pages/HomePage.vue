@@ -239,28 +239,15 @@ export default {
 
     // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
-      const length = description.length;
-      if (length > 1200) return { fontSize: '0.9rem' };      // Very long
-      if (length > 800) return { fontSize: '1rem' };        // Long  
-      if (length > 600) return { fontSize: '1.2rem' };      // Medium-long
-      if (length > 400) return { fontSize: '1.4rem' };      // Medium
-      return { fontSize: '1.8rem' };                        // Short
+      return MagicItemService.getTextSize(description);
     }
 
     function getHeaderSize(item) {
-      const length = item.description.length;
-      if (length > 1200) return { fontSize: '1.6rem' };     // Very long
-      if (length > 800) return { fontSize: '1.8rem' };      // Long
-      if (length > 600) return { fontSize: '2.0rem' };      // Medium-long  
-      if (length > 400) return { fontSize: '2.1rem' };      // Medium
-      return { fontSize: '2.3rem' };                        // Short
+      return MagicItemService.getHeaderSize(item);
     }
 
     function getSubTextSize(item) {
-      const length = item.description.length;
-      if (length > 1200) return { fontSize: '1.1rem' };     // Very long
-      if (length > 800) return { fontSize: '1.2rem' };      // Long
-      return { fontSize: '1.3rem' };                        // Medium/Short
+      return MagicItemService.getSubTextSize(item);
     }
 
     // Is only to display the pricing formula
@@ -280,7 +267,6 @@ export default {
     }
 
     // Updates the price whenever the item prices input field is changed & when the roll button is clicked
-    // TODO Should be moved to the MagicItemService
     function updatePrice(index) {
       console.log("calling updatePrice")
       const item = foundItems.value[index];

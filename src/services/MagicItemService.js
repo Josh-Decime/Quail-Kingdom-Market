@@ -91,6 +91,31 @@ class MagicItemService {
         }
     }
 
+    static getTextSize(description) {
+        const length = description.length;
+        if (length > 1200) return { fontSize: '0.9rem' };
+        if (length > 800) return { fontSize: '1rem' };
+        if (length > 600) return { fontSize: '1.2rem' };
+        if (length > 400) return { fontSize: '1.4rem' };
+        return { fontSize: '1.8rem' };
+    }
+
+    static getHeaderSize(item) {
+        const length = item.description.length;
+        if (length > 1200) return { fontSize: '1.6rem' };
+        if (length > 800) return { fontSize: '1.8rem' };
+        if (length > 600) return { fontSize: '2.0rem' };
+        if (length > 400) return { fontSize: '2.1rem' };
+        return { fontSize: '2.3rem' };
+    }
+
+    static getSubTextSize(item) {
+        const length = item.description.length;
+        if (length > 1200) return { fontSize: '1.1rem' };
+        if (length > 800) return { fontSize: '1.2rem' };
+        return { fontSize: '1.3rem' };
+    }
+
 
 }
 
