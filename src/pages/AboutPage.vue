@@ -34,6 +34,7 @@
       </p>
     </section>
 
+    <!-- TODO we are no longer using html2canvas so this needs updated -->
     <section>
       <h3 class="text-xl font-semibold mb-2">Printing</h3>
       <p>

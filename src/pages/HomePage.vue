@@ -13,7 +13,7 @@
     <div class="col-md-12">
       <p><strong>Purchasing a magic item requires time and money to seek out and contact people willing to sell items.</strong> Even then, there is no guarantee a seller will have the item a character wants.</p>
       
-      <p><strong>Resources:</strong> Finding magic items to purchase requires <strong>at least one workweek of effort and 100 gp in expenses.</strong> Spending more time and money increases your chance of finding a high-quality item.</p>
+      <p><strong>Resources:</strong> Finding magic items to purchase requires <strong>at least one workweek of effort and 100 gp in expenses.</strong> Spending more time and money increases your chance of finding a high-quality item. The monetary cost includes a wealthy lifestyle, for a buyer must impress potential business partners.</p>
       
       <p><strong>Resolution:</strong> A character seeking to buy a magic item makes a <strong>Charisma (Persuasion) check</strong> to determine the quality of the seller found. The character gains:</p>
       <ul>
@@ -23,8 +23,6 @@
       </ul>
 
       <p><strong>A +10 or -10 modifier can be added for high or low magic campaigns</strong></p>
-      
-      <p><strong>The monetary cost includes a wealthy lifestyle, for a buyer must impress potential business partners.</strong></p>
       
       <p><strong>How to Use This Tool:</strong> Roll a d20 and add your Charisma modifier. Then add your bonuses for extra time (workweeks) and money (100 gp increments) spent. Enter this total as your "Modifier" when using the tool above.</p>
     </div>
@@ -161,6 +159,8 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { AppState } from '../AppState';
 import MagicItemService from '../services/MagicItemService';
 import { printService } from '@/services/PrintService.js';
+import logo from '../assets/img/Quail-kingdom-logo.png';
+import seal from '../assets/img/Quail-kingdom-seal.png';
 
 
 export default {
@@ -294,8 +294,7 @@ export default {
 
     // Utilizes html2canvas to make a screenshot PDF of the webpage. 
     function printPage() {
-      console.log("print page is being called")
-      printService.printPage()
+      printService.printPage(foundItems.value, blackMarketMode.value, logo, seal);
     }
 
     return {
