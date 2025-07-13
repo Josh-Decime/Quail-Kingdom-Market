@@ -1,8 +1,5 @@
 <template>
   <div class="container mt-4">
-    <!-- <h1>Magic Item Merchant</h1> -->
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
-    <button class="btn btn-secondary ms-2" @click="printPage">Print Items</button>
 
 <!-- Downtime Rules Display -->
 <div v-if="!foundItems.length" class="mt-4 p-4 bg-light border rounded">
@@ -28,8 +25,11 @@
     </div>
   </div>
   
-  <div class="mt-3 p-3 bg-primary text-white rounded">
-    <strong>Ready to Start?</strong> Click "Find Magic Items" above to make your Charisma (Persuasion) check and discover what items are available for purchase!
+  <div class="mt-3 p-3 bg-primary text-white rounded text-center">
+    <button class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#rollModal">
+      <strong>Find Magic Items</strong>
+    </button>
+    <!-- <p class="mt-2 mb-0">Make your Charisma (Persuasion) check and discover what items are available for purchase!</p> -->
   </div>
 </div>
 
@@ -128,7 +128,11 @@
 
     <!-- Display Results in Cards -->
     <div v-if="foundItems.length" class="mt-4">
-      <h3 class="print-hidden">Available Items</h3>
+      <div class="d-flex align-items-center mb-3">
+        <h3 class="print-hidden mb-0 me-3">Available Items</h3>
+        <button class="btn btn-secondary print-hidden me-2" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
+        <button class="btn btn-secondary print-hidden" @click="printPage">Print Items</button>
+      </div>
       <div class="row">
         <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
           <div class="card p-3 shadow-sm item-card">
