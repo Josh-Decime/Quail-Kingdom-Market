@@ -415,19 +415,21 @@ export default {
   font-size: 1.4rem;
   line-height: 1.2;
   word-wrap: break-word;
-  /* Ensures text doesn't overflow */
+  flex-grow: 1; /* Take available space to push extension */
+  overflow: visible;
 }
 
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  height: 15in;
+  display: flex;
+  flex-direction: column;
   padding: 1.5rem;
 }
 
 .item-card {
-  height: 7.5in;
-  overflow: hidden;
+  min-height: 7.5in; /* Base size without fixed height */
+  overflow: visible; /* Allow extension */
 }
 
 .item-details {
@@ -526,4 +528,6 @@ export default {
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
+
+
 </style>

@@ -93,27 +93,55 @@ class MagicItemService {
 
     static getTextSize(description) {
         const length = description.length;
-        if (length > 1200) return { fontSize: '0.9rem' };
-        if (length > 800) return { fontSize: '1rem' };
-        if (length > 600) return { fontSize: '1.2rem' };
-        if (length > 400) return { fontSize: '1.4rem' };
-        return { fontSize: '1.8rem' };
+        const isMobile = window.innerWidth < 768;
+        let fontSize = '1.8rem';
+        if (isMobile) {
+            if (length > 1000) fontSize = '0.8rem'; // Shrink sooner and more
+            else if (length > 700) fontSize = '0.9rem';
+            else if (length > 500) fontSize = '1.0rem';
+            else if (length > 300) fontSize = '1.2rem';
+            else fontSize = '1.5rem'; // Base smaller on mobile
+        } else {
+            if (length > 1200) fontSize = '0.9rem';
+            else if (length > 800) fontSize = '1rem';
+            else if (length > 600) fontSize = '1.2rem';
+            else if (length > 400) fontSize = '1.4rem';
+        }
+        return { fontSize };
     }
 
     static getHeaderSize(item) {
         const length = item.description.length;
-        if (length > 1200) return { fontSize: '1.6rem' };
-        if (length > 800) return { fontSize: '1.8rem' };
-        if (length > 600) return { fontSize: '2.0rem' };
-        if (length > 400) return { fontSize: '2.1rem' };
-        return { fontSize: '2.3rem' };
+        const isMobile = window.innerWidth < 768;
+        let fontSize = '2.3rem';
+        if (isMobile) {
+            if (length > 1000) fontSize = '1.4rem'; // Shrink sooner and more
+            else if (length > 700) fontSize = '1.6rem';
+            else if (length > 500) fontSize = '1.8rem';
+            else if (length > 300) fontSize = '1.9rem';
+            else fontSize = '2.0rem'; // Base smaller on mobile
+        } else {
+            if (length > 1200) fontSize = '1.6rem';
+            else if (length > 800) fontSize = '1.8rem';
+            else if (length > 600) fontSize = '2.0rem';
+            else if (length > 400) fontSize = '2.1rem';
+        }
+        return { fontSize };
     }
 
     static getSubTextSize(item) {
         const length = item.description.length;
-        if (length > 1200) return { fontSize: '1.1rem' };
-        if (length > 800) return { fontSize: '1.2rem' };
-        return { fontSize: '1.3rem' };
+        const isMobile = window.innerWidth < 768;
+        let fontSize = '1.3rem';
+        if (isMobile) {
+            if (length > 1000) fontSize = '1.0rem'; // Shrink sooner and more
+            else if (length > 700) fontSize = '1.1rem';
+            else fontSize = '1.2rem'; // Base smaller on mobile
+        } else {
+            if (length > 1200) fontSize = '1.1rem';
+            else if (length > 800) fontSize = '1.2rem';
+        }
+        return { fontSize };
     }
 
 
