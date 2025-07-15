@@ -51,7 +51,7 @@ class PrintService {
             .header-section img { width: 0.6in; height: auto; vertical-align: middle; margin-right: 0.1in; }
             .header-section h1 { display: inline; font-size: 0.8rem; margin: 0; }
             .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.1in; }
-            .card { border: 1px solid #000; padding: 0.2in; page-break-inside: avoid; overflow: hidden; font-size: 0.6rem; }
+            .card { border: 1px solid #000; border-radius: 0.1in; padding: 0.2in; page-break-inside: avoid; overflow: hidden; font-size: 0.6rem; }
             .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.05in; }
             .header h5 { margin: 0; font-size: 0.75rem; }
             .details { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; gap: 0.1in; margin-bottom: 0.05in; font-size: 0.5rem; line-height: 1; }

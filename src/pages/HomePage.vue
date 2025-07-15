@@ -178,6 +178,19 @@ export default {
     const foundItems = ref([]);
     const blackMarketMode = ref(false);
 
+    onMounted(() => {
+      document.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'p') {
+          event.preventDefault();
+          if (foundItems.value.length > 0) {
+            printPage();
+          } else {
+            alert("No items to print!");
+          }
+        }
+      });
+    });
+
     // Watch for foundItems updates and attach price properties
     watch(foundItems, (newItems) => {
       newItems.forEach((item) => {
@@ -338,73 +351,74 @@ export default {
     padding: 0 !important;
   }
 
-  /* Shift everything up to remove navbar space */
-  .container {
-    position: fixed !important;
-    top: -45px !important;
-    left: 0 !important;
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  /* Hide unnecessary UI elements */
-  .btn,
+  /* Hide unnecessary UI elements: rules, modal, buttons, headers */
+  .bg-light,
   .modal,
-  h1,
-  .print-hidden {
+  .btn,
+  .print-hidden,
+  h3,
+  h4,
+  p.mb-3,
+  .bg-primary {
     display: none !important;
   }
 
-  /* Keep two-column layout and ensure text doesn't cut off */
+  .container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Show only items: 2-column grid, no duplicates */
   .row {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    /* Two per row */
-    gap: 5px !important;
-    justify-content: center !important;
-    align-items: start !important;
-  }
-
-  /* Ensure cards fit content dynamically */
-  .print-card {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.1in !important;
     page-break-inside: avoid !important;
-    width: 49.5% !important;
-    /* Maximize width */
-    max-width: 49.5% !important;
-    min-height: 6in !important;
-    /* Allow room for long descriptions */
-    padding: 0.3rem !important;
-    font-size: 0.75rem !important;
-    text-align: left !important;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
-  /* Reduce space to fit more text */
-  .print-card * {
-    max-height: 100% !important;
-    margin-bottom: 1px !important;
+  .col-md-6 {
+    width: 100% !important;
+    margin: 0 !important;
   }
 
-  /* Reduce text size on long descriptions */
+  /* Cards: dynamic, compact for 1-2 pages */
+  .card.item-card {
+    border: 1px solid #000 !important;
+    padding: 0.2in !important;
+    page-break-inside: avoid !important;
+    min-height: auto !important;
+    font-size: 0.6rem !important;
+    overflow: hidden !important;
+  }
+
   .formatted-text {
-    font-size: 0.7rem !important;
-    line-height: 1.2 !important;
-    /* Reduce line spacing */
-  }
-
-  /* Force smaller text for very long descriptions */
-  .print-card[data-length="long"] .formatted-text {
     font-size: 0.65rem !important;
     line-height: 1.1 !important;
+    word-wrap: break-word !important;
   }
 
-  /* Force even smaller text for extremely long descriptions */
-  .print-card[data-length="extra-long"] .formatted-text {
+  .small-text, .card-price {
+    font-size: 0.5rem !important;
+  }
+
+  .card-title {
+    font-size: 0.75rem !important;
+  }
+
+  .item-details {
+    font-size: 0.5rem !important;
+    margin-bottom: 0.05in !important;
+  }
+
+  hr {
+    margin: 0.05in 0 !important;
+  }
+
+  /* Long content adjustment */
+  .item-card.long-description .formatted-text {
     font-size: 0.6rem !important;
-    line-height: 1 !important;
+    line-height: 1.05 !important;
   }
 }
 
