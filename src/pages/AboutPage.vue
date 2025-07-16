@@ -5,12 +5,12 @@
 <template>
   <div class="about container py-4">
     <section class="mb-6">
-      <h2 class="text-2xl font-bold mb-2">About the Quail Kingdom Market</h2>
+      <h2 class="text-2xl font-bold mb-2">About the Quail Kingdom Market Website</h2>
       <p class="mb-2">
-        The Quail Kingdom Market was created as a quick & easy way for members of <strong>The Brass Key Collective</strong> D&D group to purchase magic items using the downtime purchasing rules outlined in <em>Xanathar’s Guide to Everything</em>.
+        The Quail Kingdom Market was created as a quick & easy way for members of <strong>The Brass Key Collective</strong> D&D group to purchase magic items using the downtime purchasing rules outlined in <em>Xanathar's Guide to Everything</em>.
       </p>
       <p>
-        It features custom-built item tables & includes a <strong>Black Market</strong> section to allow for the inclusion of homebrew items tailored to each DM’s campaign.
+        It features custom-built item tables & includes a <strong>Black Market</strong> section to allow for the inclusion of homebrew items tailored to each DM's campaign.
       </p>
     </section>
 
@@ -34,11 +34,17 @@
       </p>
     </section>
 
-    <!-- TODO we are no longer using html2canvas so this needs updated -->
-    <section>
+    <section class="mb-6">
       <h3 class="text-xl font-semibold mb-2">Printing</h3>
       <p>
-        Use the <strong>"Print Items"</strong> button to generate a cleaner, print-friendly version of the item list using <code>html2canvas</code>. This version includes a designated space for the DM’s authorization signature, making it easier to audit characters & ensure item purchases are legitimate.
+        Use the <strong>"Print Items"</strong> button to generate a print-friendly version of the item list. This version features a designated space for the DM's authorization signature, facilitating easy auditing of characters & ensuring legitimate item purchases.
+      </p>
+    </section>
+
+    <section class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">The Lore of the Quail Kingdom</h3>
+      <p>
+        The Quail Kingdom has become renowned throughout the realm as the premier destination for those seeking magical treasures. Under the Quail King's guidance, the kingdom's citizens have cultivated an intricate network of contacts, suppliers, & skilled appraisers who can locate even the most elusive enchanted items. Whether you're a seasoned adventurer or a novice explorer, the people of the Quail Kingdom stand ready to help you find exactly what you need for your next quest.
       </p>
     </section>
   </div>
