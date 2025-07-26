@@ -29,7 +29,6 @@
     <button class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#rollModal">
       <strong>Find Magic Items</strong>
     </button>
-    <!-- <p class="mt-2 mb-0">Make your Charisma (Persuasion) check and discover what items are available for purchase!</p> -->
   </div>
 </div>
 
@@ -118,8 +117,6 @@
           </div>
 
           <div class="modal-footer">
-            <!-- NOTE search item may be redundant -->
-            <!-- <button class="btn btn-success" @click="searchItems" data-bs-dismiss="modal">Search Items</button> -->
             <button class="btn btn-success" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
@@ -249,11 +246,6 @@ export default {
       percentileRolls.value = MagicItemService.initializePercentileRolls(itemCountRoll.value);
     }
 
-    // TODO No longer being used, can be removed
-    function searchItems() {
-      foundItems.value = MagicItemService.findMagicItems(totalRoll.value, percentileRolls.value);
-    }
-
     // These 3 functions re-size text when it gets to long
     function getTextSize(description) {
       return MagicItemService.getTextSize(description);
@@ -298,7 +290,7 @@ export default {
       return MagicItemService.getDieForRarity(rarity)
     }
 
-    // TODO Re-name "calculatePrice", since it is calculating the price from webpage rolls & user input of physical dice values
+    // Calculates the price from rolled values & user input rolls
     function calculatePriceFromRoll(rarity, roll) {
       console.log("calling calculatePriceFromRoll")
       return MagicItemService.calculatePriceFromRoll(rarity, roll)
@@ -309,7 +301,7 @@ export default {
       blackMarketMode.value = !blackMarketMode.value;
     }
 
-    // Utilizes html2canvas to make a screenshot PDF of the webpage. 
+    // Formats the items for printing
     function printPage() {
       printService.printPage(foundItems.value, blackMarketMode.value, logo, seal);
     }
@@ -325,7 +317,6 @@ export default {
       rollItemCount,
       rollPercentile,
       updatePercentileInputs,
-      searchItems,
       getTextSize,
       getHeaderSize,
       getSubTextSize,
