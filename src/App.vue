@@ -1,6 +1,13 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import { RouterView } from 'vue-router';
+import MagicItemService from './services/MagicItemService';
+import { onMounted } from 'vue';
+
+// NOTE adds randomized quail silhouettes all over the website 
+onMounted(() => {
+    MagicItemService.addRandomQuails();
+});
 
 </script>
 
@@ -21,11 +28,11 @@ import { RouterView } from 'vue-router';
 
 /* Global custom cursor */
 *, *::before, *::after {
-  cursor: url('@/assets/img/Quail-Cursor-32.ico') 2 0, auto !important;
+  cursor: url('@/assets/img/Quail-Cursor-32.ico') 5 0, auto !important;
 }
 
 body, html {
-  cursor: url('@/assets/img/Quail-Cursor-32.ico') 2 0, auto !important;
+  cursor: url('@/assets/img/Quail-Cursor-32.ico') 5 0, auto !important;
 }
 
 

@@ -112,4 +112,9 @@ input.form-control {
     max-width: 400px;
     margin-bottom: 10px;
 }
+
+/* Puts the modal in front of the quails */
+.modal {
+  z-index: 10000; /* Higher than the quails' z-index of 9999 */
+}
 </style>

@@ -1,4 +1,5 @@
 import { AppState } from '../AppState';
+import quailImg from '@/assets/img/Quail-Silhouette-20opacity.png';
 
 class MagicItemService {
     // Handles rolling all of the dice
@@ -145,6 +146,94 @@ class MagicItemService {
     }
 
 
+
+    // SECTION this adds & controls the random quail silhouettes
+
+    static quails = []; // Store the quail images for repositioning
+
+    static addRandomQuails() {
+        if (this.quails.length > 0) {
+            this.repositionQuails();
+            return;
+        }
+
+        const numQuails = Math.floor(Math.random() * 5) + 3; // Random number between 3 and 7
+        const minSize = 50; // quail img sizing
+        const maxSize = 100;
+
+        for (let i = 0; i < numQuails; i++) {
+            const img = document.createElement('img');
+            img.src = quailImg;
+            img.style.position = 'absolute';
+            img.style.zIndex = '9999';
+            img.style.pointerEvents = 'none';
+            const randomSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+            img.style.width = `${randomSize}px`;
+            img.style.height = 'auto'; // Maintain aspect ratio
+            if (Math.random() < 0.5) {
+                img.style.transform = 'scaleX(-1)';
+            }
+            img.style.opacity = '0'; // Start with fade out
+            document.body.appendChild(img);
+            this.quails.push(img);
+        }
+
+        this.repositionQuails();
+        this.scheduleNextShuffle();
+    }
+
+    static repositionQuails() {
+        const pageWidth = document.documentElement.clientWidth;
+        const pageHeight = document.documentElement.scrollHeight;
+        const positions = [];
+
+        this.quails.forEach(img => {
+            let newLeft, newTop;
+            let attempts = 0;
+            const maxAttempts = 50;
+            const quailSize = parseInt(img.style.width);
+
+            do {
+                newLeft = Math.random() * (pageWidth - quailSize);
+                newTop = Math.random() * (pageHeight - quailSize);
+                attempts++;
+            } while (attempts < maxAttempts && positions.some(pos =>
+                Math.abs(pos.left - newLeft) < quailSize && Math.abs(pos.top - newTop) < quailSize
+            ));
+
+            if (attempts >= maxAttempts) {
+                newLeft = Math.random() * (pageWidth - quailSize);
+                newTop = Math.random() * (pageHeight - quailSize);
+            }
+
+            img.style.transition = 'opacity 1s ease'; // Fade transition
+            img.style.opacity = '1'; // Fade in
+            img.style.left = `${newLeft}px`;
+            img.style.top = `${newTop}px`;
+
+            positions.push({ left: newLeft, top: newTop });
+        });
+    }
+
+    static scheduleNextShuffle() {
+        const randomInterval = Math.floor(Math.random() * 21) + 10; // 10-30 seconds
+        setTimeout(() => {
+            this.quails.forEach(img => {
+                img.style.transition = 'opacity 1s ease'; // Fade out transition
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    this.repositionQuails();
+                    this.quails.forEach(q => q.style.opacity = '1'); // Fade back in
+                }, 1000); // Match fade duration
+            });
+            this.scheduleNextShuffle();
+        }, randomInterval * 1000);
+    }
+
+
+
+
 }
+
 
 export default MagicItemService;

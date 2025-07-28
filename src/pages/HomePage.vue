@@ -534,5 +534,10 @@ export default {
   border-color: #333 transparent transparent transparent;
 }
 
+/* Puts the modal in front of the quails */
+.modal {
+  z-index: 10000; /* Higher than the quails' z-index of 9999 */
+}
+
 
 </style>
