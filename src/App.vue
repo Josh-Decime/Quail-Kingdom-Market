@@ -18,6 +18,17 @@ import { RouterView } from 'vue-router';
 </template>
 
 <style lang="scss">
+
+/* Global custom cursor */
+*, *::before, *::after {
+  cursor: url('@/assets/img/Quail-Cursor-32.ico') 2 0, auto !important;
+}
+
+body, html {
+  cursor: url('@/assets/img/Quail-Cursor-32.ico') 2 0, auto !important;
+}
+
+
 .quail-footer {
   display: flex;
   justify-content: flex-end;
