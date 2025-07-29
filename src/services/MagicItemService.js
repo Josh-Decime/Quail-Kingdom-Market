@@ -150,6 +150,7 @@ class MagicItemService {
     // SECTION this adds & controls the random quail silhouettes
 
     static quails = []; // Store the quail images for repositioning
+    static lastWidth = 0; //checks if window size changes
 
     static addRandomQuails() {
         if (this.quails.length > 0) {
@@ -178,8 +179,10 @@ class MagicItemService {
             this.quails.push(img);
         }
 
+        this.lastWidth = document.documentElement.clientWidth;
         this.repositionQuails();
         this.scheduleNextShuffle();
+        this.setupResizeListener();
     }
 
     static repositionQuails() {
@@ -228,6 +231,20 @@ class MagicItemService {
             });
             this.scheduleNextShuffle();
         }, randomInterval * 1000);
+    }
+
+    static setupResizeListener() {
+        window.addEventListener('resize', () => {
+            const currentWidth = document.documentElement.clientWidth;
+            if (currentWidth !== this.lastWidth) {
+                this.quails.forEach(img => img.style.opacity = '0');
+                setTimeout(() => {
+                    this.repositionQuails();
+                    this.quails.forEach(q => q.style.opacity = '1');
+                    this.lastWidth = currentWidth;
+                }, 1000);
+            }
+        });
     }
 
 

@@ -519,6 +519,17 @@ export default {
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
+@media (max-width: 768px) {
+  .tooltip-text {
+    width: 180px;
+    left: 0;
+    right: auto;
+    margin-left: 0;
+    top: -100px;
+    transform: translateX(-100%);
+  }
+}
+
 .info-icon:hover .tooltip-text {
   visibility: visible;
 }
