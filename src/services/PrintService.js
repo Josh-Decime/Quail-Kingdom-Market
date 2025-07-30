@@ -19,12 +19,15 @@ class PrintService {
       const textStyle = this.getTextStyle(item.description);
       const isBlackMarket = item.blackMarket || blackMarketMode;
       const cardClass = item.description.length > 800 ? 'long-description' : '';
+      // Conditionally add "Purchased" label if item.purchased is true
+      // Conditionally add "Purchased" label if item.purchased is true
+      const priceText = item.price ? `${item.purchased ? '(Purchased) ' : ''}${item.price} gp` : '(Not Priced)';
 
       itemsHtml += `
         <div class="card ${cardClass}">
           <div class="header">
             <h5 style="${headerStyle}" class="${isBlackMarket ? 'black-market-text' : ''}">${item.name}</h5>
-            <p style="${subTextStyle}" class="${isBlackMarket ? 'black-market-price' : ''}"><strong>${item.price || '(Not Priced)'} gp</strong></p>
+            <p style="${subTextStyle}" class="${isBlackMarket ? 'black-market-price' : ''}"><strong>${priceText}</strong></p>
           </div>
           <div class="details">
             ${isBlackMarket ? '<span style="' + subTextStyle + '"><strong>Black Market Item</strong></span>' : ''}
@@ -89,7 +92,6 @@ class PrintService {
     printWindow.document.close();
   }
 
-  // Helper functions unchanged
   getHeaderStyle(item) {
     return item.name.length > 30 ? 'font-size: 0.65rem;' : 'font-size: 0.75rem;';
   }

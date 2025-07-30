@@ -117,13 +117,13 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-success" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Display Results in Cards -->
+<!-- Display Results in Cards -->
     <div v-if="foundItems.length" class="mt-4">
       <div class="d-flex align-items-center mb-3">
         <h3 class="print-hidden mb-0 me-3">Available Items</h3>
@@ -135,19 +135,28 @@
           <div class="card p-3 shadow-sm item-card">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title" :class="{ 'black-market-text': item.blackMarket }" :style="getHeaderSize(item)">{{ item.name }}</h5>
-              <p v-if="item.price" class="card-price" :class="{ 'black-market-price': item.blackMarket }" :style="getSubTextSize(item)"><strong>{{ item.price }} gp</strong></p>
+              <div class="d-flex align-items-center">
+                <button 
+                  class="btn btn-sm print-hidden" 
+                  :class="item.purchased ? 'btn-primary' : 'btn-secondary'" 
+                  @click="togglePurchase(item)"
+                >
+                  {{ item.purchased ? 'Purchased' : 'Buy' }}
+                </button>
+                <p v-if="item.price" class="card-price ms-2" :class="{ 'black-market-price': item.blackMarket }" :style="getSubTextSize(item)">
+                  <strong>{{ item.price }} gp</strong>
+                </p>
+              </div>
             </div>
             <div class="item-details" :class="{ 'inline-details': item.description.length > 800 }">
               <p v-if="item.blackMarket" :style="getSubTextSize(item)" class="small-text"><strong>Black Market Item</strong></p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>{{ item.blackMarket ? 'Estimated Rarity' : 'Rarity' }}:</strong> {{ item.rarity }}</p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>Type:</strong> {{ item.type }}</p>
               <p :style="getSubTextSize(item)" class="small-text"><strong>Weight:</strong> {{ item.weight }} lbs</p>
-              <p v-if="item.attunement" :style="getSubTextSize(item)" class="small-text"><strong>Requires
-                  Attunement</strong></p>
+              <p v-if="item.attunement" :style="getSubTextSize(item)" class="small-text"><strong>Requires Attunement</strong></p>
             </div>
             <hr class="compact-hr">
-            <p class="formatted-text" :style="getTextSize(item.description)"
-              v-html="item.description.replace(/\n/g, '<br>')"></p>
+            <p class="formatted-text" :style="getTextSize(item.description)" v-html="item.description.replace(/\n/g, '<br>')"></p>
           </div>
         </div>
       </div>
@@ -194,6 +203,9 @@ export default {
         if (!item.price) {
           item.price = "(Roll)"; // Default text
         }
+        if (item.purchased === undefined) {
+          item.purchased = false; // Initialize purchased state
+        }
       });
     }, { deep: true });
 
@@ -201,9 +213,10 @@ export default {
     watch(percentileRolls, (newRolls) => {
       if (newRolls.length) {
         foundItems.value = MagicItemService.findMagicItems(totalRoll.value, newRolls);
-        // Initialize prices as soon as items are found
+        // Initialize prices and purchased state as soon as items are found
         foundItems.value.forEach((item) => {
           item.price = ""; // Keep it empty until the player rolls
+          item.purchased = false; // Initialize purchased state
         });
       }
     }, { deep: true });
@@ -301,10 +314,15 @@ export default {
       blackMarketMode.value = !blackMarketMode.value;
     }
 
+    function togglePurchase(item) {
+      item.purchased = !item.purchased;
+    }
+
     // Formats the items for printing
     function printPage() {
       printService.printPage(foundItems.value, blackMarketMode.value, logo, seal);
     }
+
 
     return {
       tableRoll,
@@ -328,6 +346,7 @@ export default {
       calculatePriceFromRoll,
       blackMarketMode,
       toggleBlackMarketMode,
+      togglePurchase,
       printPage,
     };
   }
@@ -548,6 +567,22 @@ export default {
 /* Puts the modal in front of the quails */
 .modal {
   z-index: 10000; /* Higher than the quails' z-index of 9999 */
+}
+
+/* Style for the Buy/Purchased button */
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Ensure the button and price align nicely */
+.card-price {
+  margin-bottom: 0; /* Remove extra margin for tighter alignment */
+}
+
+/* Adjust spacing for the flex container */
+.d-flex.align-items-center {
+  gap: 0.5rem; /* Add consistent spacing between button and price */
 }
 
 
