@@ -1,4 +1,15 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
+import MagicItemService from '@/services/MagicItemService';
+
+// NOTE adds randomized quail silhouettes all over the website 
+onMounted(() => {
+    MagicItemService.addRandomQuails();
+});
+
+onUnmounted(() => {
+    MagicItemService.clearAllQuails();
+});
 
 </script>
 

@@ -151,6 +151,7 @@ class MagicItemService {
 
     static quails = []; // Store the quail images for repositioning
     static lastWidth = 0; //checks if window size changes
+    static shuffleTimeout = null; // Track the timeout to prevent multiple timers
 
     static addRandomQuails() {
         if (this.quails.length > 0) {
@@ -174,6 +175,11 @@ class MagicItemService {
             if (Math.random() < 0.5) {
                 img.style.transform = 'scaleX(-1)';
             }
+
+            // Generate random opacity between 25% and 100%
+            const randomOpacity = (Math.random() * 0.75) + 0.25; // 0.25 to 1.0
+            img.dataset.maxOpacity = randomOpacity; // Store the max opacity for this quail
+
             img.style.opacity = '0'; // Start with fade out
             document.body.appendChild(img);
             this.quails.push(img);
@@ -210,7 +216,8 @@ class MagicItemService {
             }
 
             img.style.transition = 'opacity 1s ease'; // Fade transition
-            img.style.opacity = '1'; // Fade in
+            // Use the stored max opacity instead of hardcoded '1'
+            img.style.opacity = img.dataset.maxOpacity; // Fade in to individual opacity
             img.style.left = `${newLeft}px`;
             img.style.top = `${newTop}px`;
 
@@ -219,14 +226,20 @@ class MagicItemService {
     }
 
     static scheduleNextShuffle() {
+        // Clear any existing timeout first
+        if (this.shuffleTimeout) {
+            clearTimeout(this.shuffleTimeout);
+        }
+
         const randomInterval = Math.floor(Math.random() * 21) + 10; // 10-30 seconds
-        setTimeout(() => {
+        this.shuffleTimeout = setTimeout(() => {
             this.quails.forEach(img => {
                 img.style.transition = 'opacity 1s ease'; // Fade out transition
                 img.style.opacity = '0';
                 setTimeout(() => {
                     this.repositionQuails();
-                    this.quails.forEach(q => q.style.opacity = '1'); // Fade back in
+                    // Use individual max opacity for each quail when fading back in
+                    this.quails.forEach(q => q.style.opacity = q.dataset.maxOpacity);
                 }, 1000); // Match fade duration
             });
             this.scheduleNextShuffle();
@@ -240,13 +253,27 @@ class MagicItemService {
                 this.quails.forEach(img => img.style.opacity = '0');
                 setTimeout(() => {
                     this.repositionQuails();
-                    this.quails.forEach(q => q.style.opacity = '1');
+                    // Use individual max opacity for each quail after resize
+                    this.quails.forEach(q => q.style.opacity = q.dataset.maxOpacity);
                     this.lastWidth = currentWidth;
                 }, 1000);
             }
         });
     }
 
+    static clearAllQuails() {
+        // Clear timeout to stop the shuffle cycle
+        if (this.shuffleTimeout) {
+            clearTimeout(this.shuffleTimeout);
+            this.shuffleTimeout = null;
+        }
+
+        // Clear quails from DOM and array
+        this.quails.forEach(img => {
+            img.remove();
+        });
+        this.quails = [];
+    }
 
 
 

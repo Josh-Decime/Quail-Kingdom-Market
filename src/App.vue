@@ -4,10 +4,10 @@ import { RouterView } from 'vue-router';
 import MagicItemService from './services/MagicItemService';
 import { onMounted } from 'vue';
 
-// NOTE adds randomized quail silhouettes all over the website 
-onMounted(() => {
-    MagicItemService.addRandomQuails();
-});
+// // NOTE adds randomized quail silhouettes all over the website 
+// onMounted(() => {
+//     MagicItemService.addRandomQuails();
+// });
 
 </script>
 
