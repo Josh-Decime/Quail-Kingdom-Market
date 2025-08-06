@@ -125,20 +125,20 @@
 
 <!-- Display Results in Cards -->
     <div v-if="foundItems.length" class="mt-4">
-      <div class="d-flex align-items-center mb-3">
+      <div class="d-flex align-items-center mb-3 bg-primary p-2 rounded">
         <h3 class="print-hidden mb-0 me-3">Available Items</h3>
         <button class="btn btn-secondary print-hidden me-2" data-bs-toggle="modal" data-bs-target="#rollModal">Find Magic Items</button>
         <button class="btn btn-secondary print-hidden" @click="printPage">Print Items</button>
       </div>
       <div class="row">
         <div v-for="item in foundItems" :key="item.name" class="col-md-6 mb-4">
-          <div class="card p-3 shadow-sm item-card">
-            <div class="d-flex justify-content-between align-items-center">
+          <div class="card p-3 shadow-sm item-card bg-light">
+            <div class="d-flex justify-content-between align-items-center bg-primary rounded p-2">
               <h5 class="card-title" :class="{ 'black-market-text': item.blackMarket }" :style="getHeaderSize(item)">{{ item.name }}</h5>
               <div class="d-flex align-items-center">
                 <button 
                   class="btn btn-sm print-hidden" 
-                  :class="item.purchased ? 'btn-primary' : 'btn-secondary'" 
+                  :class="item.purchased ? 'btn-secondary' : 'btn-secondary'" 
                   @click="togglePurchase(item)"
                 >
                   {{ item.purchased ? 'Purchased' : 'Buy' }}
